@@ -1,0 +1,1 @@
+document.write('<link href="/admin/common/css/plugins/datepicker/datepicker3.css" rel="stylesheet"><script src="/admin/common/js/plugins/datepicker/bootstrap-datepicker.js"></script><script src="/admin/common/js/plugins/datepicker/bootstrap-datepicker.ja.min.js"></script>');
