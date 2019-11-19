@@ -27,7 +27,27 @@
 			</li>
 			<li{if $manage == ""} class="active"{/if}><a href="{$_ADMIN.home}/"><i class="fa fa-home"></i><span class="nav-label">HOME</span></a></li>
 			<li{if $manage == "information"} class="active"{/if}><a href="{$_ADMIN.home}/contents/information/"><i class="fa fa-info-circle"></i><span class="nav-label">お知らせ管理</span></a></li>
-			<li{if $manage == "recruit"} class="active"{/if}><a href="{$_ADMIN.home}/contents/recruit/"><i class="fa fa-file-text"></i><span class="nav-label">採用情報管理</span></a></li>
+
+			<li{if $action == "event"} class="active"{/if}>
+				<a href="#"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><span class="nav-label">イベント・会場設営管理</span><span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level collapse">
+					<li {if $manage == event}class="active"{/if}><a href="{$_ADMIN.home}/contents/event/">イベント・会場設営一覧</a></li>
+					<li {if $manage == event_category}class="active"{/if}><a href="{$_ADMIN.home}/contents/event_category/">イベント・会場設営カテゴリ一覧</a></li>
+				</ul>
+			</li>
+
+			<li{if $action == "rental"} class="active"{/if}>
+				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル管理</span><span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level collapse">
+					<li {if $manage == rental}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental/">レンタル一覧</a></li>
+					<li {if $manage == rental_category}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental_category/">レンタルカテゴリ一覧</a></li>
+				</ul>
+			</li>
+
+
+			<li{if $manage == "estimate"} class="active"{/if}><a href="{$_ADMIN.home}/contents/estimate/"><i class="fa fa-file-o" aria-hidden="true"></i></i><span class="nav-label">見積り管理</span></a></li>
+			<li{if $manage == "work"} class="active"{/if}><a href="{$_ADMIN.home}/contents/work/"><i class="fa fa-users" aria-hidden="true"></i><span class="nav-label">アルバイト応募管理</span></a></li>
+			<li{if $manage == "contact"} class="active"{/if}><a href="{$_ADMIN.home}/contents/contact/"><i class="fa fa-question-circle" aria-hidden="true"></i><span class="nav-label">お問い合わせ管理</span></a></li>
 			<li{if $manage == "siteconf"} class="active"{/if}><a href="{$_ADMIN.home}/contents/siteconf/"><i class="fa fa-gear"></i><span class="nav-label">サイト設定</span></a></li>
 		</ul>
 	</div>
