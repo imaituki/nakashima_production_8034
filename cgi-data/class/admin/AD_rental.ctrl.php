@@ -19,6 +19,8 @@ class AD_rental {
 	// 主テーブル
 	var $_CtrTable   = "mst_rental";
 	var $_CtrTablePk = "id_rental";
+	var $_CtrTable2   = "t_rental_parts";
+	var $_CtrTablePk2 = "id_rental_parts";
 
 	// コントロール機能（ログ用）
 	var $_CtrLogName = "レンタル品";
@@ -118,7 +120,7 @@ class AD_rental {
 	// 戻り値: エラーメッセージ
 	// 内  容: データチェック
 	//-------------------------------------------------------
-	function check( &$arrVal, $mode ) {
+	function check( $arrVal, $mode ) {
 
 		// チェッククラス宣言
 		$objInputCheck = new FN_input_check( "UTF-8" );
@@ -201,11 +203,6 @@ class AD_rental {
 		$arrSql["display_num"] = "( SELECT IFNULL( max_num + 1, 1 ) FROM ( SELECT MAX( display_num ) AS max_num FROM " . $this->_CtrTable . " ) AS maxnm ) ";
 		$arrVal["entry_date"]  = date( "Y-m-d H:i:s" );
 		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
-		$arrVal["date_start"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_start"] . " " . implode( ":", $arrVal["start_time"] ) . ":00" ) );
-		$arrVal["date_end"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_end"] . " " . implode( ":", $arrVal["end_time"] ) . ":59" ) );
-		unset( $arrVal["start_time"] );
-		unset( $arrVal["end_time"]   );
-
 
 		// 登録
 		$res = $this->_DBconn->insert( $this->_CtrTable, $arrVal, $arrSql );
@@ -259,10 +256,7 @@ class AD_rental {
 		// 登録データの作成
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
 		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
-		$arrVal["date_start"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_start"] . " " . implode( ":", $arrVal["start_time"] ) . ":00" ) );
-		$arrVal["date_end"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_end"] . " " . implode( ":", $arrVal["end_time"] ) . ":59" ) );
-		unset( $arrVal["start_time"] );
-		unset( $arrVal["end_time"]   );
+
 		// 更新条件
 		$where = $this->_CtrTablePk . " = " . $arrVal["id_rental"];
 		// 更新
@@ -453,6 +447,29 @@ class AD_rental {
 
 		// データ取得
 		$res = $this->_DBconn->selectCtrl( $creation_kit, $option );
+
+		// 戻り値
+		return $res;
+
+	}
+
+	//-------------------------------------------------------
+	// 関数名：GetSearchDetail
+	// 引  数：$search - 検索条件
+	// 戻り値：リスト
+	// 内  容：検索を行いデータを取得
+	//-------------------------------------------------------
+	function GetSearchDetail( $search ) {
+
+		// SQL配列
+		$creation_kit = array(  "select" => "*",
+								"from"   => $this->_CtrTable2,
+								"where"  => "id_rental = " . $search["search_id_rental"] . " ",
+								"order"  => "id_rental ASC"
+							);
+
+		// データ取得
+		$res = $this->_DBconn->selectCtrl( $creation_kit, array( "fetch" => _DB_FETCH_ALL ) );
 
 		// 戻り値
 		return $res;

@@ -36,6 +36,9 @@ if( empty( $message["ng"] ) ) {
 	// トランザクション
 	$mainObject->_DBconn->StartTrans();
 
+	$arr_detail = $arr_post["detail"];
+	unset( $arr_post["detail"] );
+
 	// 登録処理
 	$res = $mainObject->insert( $arr_post );
 
