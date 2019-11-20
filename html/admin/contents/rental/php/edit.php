@@ -23,7 +23,7 @@ $_POST = $mainObject->GetIdRow( $arr_get["id"] );
 
 if( !empty( $_POST["id_rental"] ) ) {
 	// 事業所取得
-	$_POST["detail"] = $objGroup->GetSearchDetail( array( "search_id_rental" => $_POST["id_rental"] ) );
+	$_POST["detail"] = $mainObject->GetSearchDetail( array( "search_id_rental" => $_POST["id_rental"] ) );
 }
 
 // クラス削除
@@ -45,7 +45,8 @@ if( !empty($_POST[_CONTENTS_ID]) ) {
 	}
 	// オプション設定
 	$smarty->assign( 'OptionRentalCategory' , $OptionRentalCategory  );
-	
+
+
 	// 表示
 	$smarty->display( "edit.tpl" );
 

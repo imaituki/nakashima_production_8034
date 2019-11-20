@@ -156,6 +156,7 @@ class AD_rental {
 			foreach ( $arrVal["detail"][0] as $key => $val ) {
 				if( !empty( $val ) ){
 					$check_flg = 1;
+					break;
 				}
 			}
 			if( $check_flg == 1 ){

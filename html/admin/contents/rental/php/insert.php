@@ -20,7 +20,7 @@ $message = NULL;
 //  新規登録処理
 //----------------------------------------
 // 操作クラス
-$objManage  = new DB_manage( _DNS,1 );
+$objManage  = new DB_manage( _DNS );
 $mainObject = new $class_name( $objManage, $_ARR_IMAGE );
 
 // データ変換
@@ -28,7 +28,6 @@ $arr_post = $mainObject->convert( $arr_post );
 
 // データチェック
 $message = $mainObject->check( $arr_post, 'insert' );
-disp_arr($message );
 
 // エラーチェック
 if( empty( $message["ng"] ) ) {
@@ -49,17 +48,17 @@ if( empty( $message["ng"] ) ) {
 	}else{
 
 		if( !empty( $arr_detail ) && is_array( $arr_detail ) ){
-			$Id_Group = $objGroup->_DBconn->Insert_ID();
+			$Id_rental = $mainObject->_DBconn->Insert_ID();
 
 			foreach ( $arr_detail as $key => $val ) {
-				$val["id_group"] = $Id_Group;
+				$val["id_rental"] = $Id_rental;
 				// 登録処理
-				$res2 = $objGroup->insert_detail( $val );
+				$res2 = $mainObject->insert_detail( $val );
 			}
 		}
 		// ロールバック
 			if( $res2 == false ) {
-				$objGroup->_DBconn->RollbackTrans();
+				$mainObject->_DBconn->RollbackTrans();
 				$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
 			}
 		}

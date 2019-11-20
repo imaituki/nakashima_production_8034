@@ -21,7 +21,7 @@ class AD_rental_category {
 	var $_CtrTablePk = "id_rental_category";
 
 	// コントロール機能（ログ用）
-	var $_CtrLogName = "レンタル品カテゴリマスタ";
+	var $_CtrLogName = "レンタルカテゴリマスタ";
 
 	// ファイル操作クラス
 	var $_FN_file = null;

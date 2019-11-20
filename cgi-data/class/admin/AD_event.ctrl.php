@@ -21,7 +21,7 @@ class AD_event {
 	var $_CtrTablePk = "id_event";
 
 	// コントロール機能（ログ用）
-	var $_CtrLogName = "レンタル品";
+	var $_CtrLogName = "レンタル";
 
 	// ファイル操作クラス
 	var $_FN_file = null;
