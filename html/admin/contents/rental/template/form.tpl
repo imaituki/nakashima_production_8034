@@ -3,12 +3,12 @@
 		<div class="form-group required">
 			<label class="col-sm-2 control-label">カテゴリ</label>
 			<div class="col-sm-6">
-				{if $message.ng.rental_category|default:"" != NULL}<p class="error">{$message.ng.rental_category}</p>{/if}
+				{if $message.ng.id_rental_category|default:"" != NULL}<p class="error">{$message.ng.id_rental_category}</p>{/if}
 
 				<div class="radio m-r-xs inline">
-					<select class="form-control" name="rental_category" id="rental_category">
+					<select class="form-control" name="id_rental_category" id="id_rental_category">
 						<option value="0">選択してください</option>
-						{html_options options=$OptionRentalCategory selected=$arr_post.rental_category}
+						{html_options options=$OptionRentalCategory selected=$arr_post.id_rental_category}
 					</select>
 				</div>
 			</div>
@@ -34,17 +34,8 @@
 			<label class="col-sm-2 control-label">単位</label>
 			<div class="col-sm-3">
 				<div class="input-group m-b">
+					{if $message.ng.unit|default:"" != NULL}<p class="error">{$message.ng.unit}</p>{/if}
 					<input type="text" class="form-control" name="unit" id="unit" value="{$arr_post.unit|default:""}" />
-				</div>
-			</div>
-		</div>
-		<div class="hr-line-dashed"></div>
-		<div class="form-group required">
-			<label class="col-sm-2 control-label">税抜き単価</label>
-			<div class="col-sm-3">
-				<div class="input-group m-b">
-					<span class="input-group-addon">￥</span>
-					<input type="number" class="form-control" name="price" id="price" value="{$arr_post.price|default:""}" />
 				</div>
 			</div>
 		</div>
@@ -61,23 +52,58 @@
 			{include file=$template_image path=$_IMAGEFULLPATH dir=$_CONTENTS_DIR prefix="s_"}
 		{/if}
 		<div class="form-group">
-			<label class="col-sm-2 control-label">掲載期間 </label>
-			<div class="col-sm-4">
-				<div class="radio m-r-xs inline mb15">
-					{html_radios name="display_indefinite" values=1 selected=$arr_post.display_indefinite|default:"1" output="設定しない"}&nbsp;&nbsp;
-					{html_radios name="display_indefinite" values=0 selected=$arr_post.display_indefinite|default:"1" output="設定する"}
-				</div>
-				{if $message.ng.display_start|default:"" != NULL}<p class="error">{$message.ng.display_start}</p>{/if}
-				{if $message.ng.display_end|default:"" != NULL}<p class="error">{$message.ng.display_end}</p>{/if}
-				<div class="input-daterange input-group" id="datepicker">
-					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-					<input type="text" class="input-sm form-control datepicker" name="display_start" id="display_start" value="{$arr_post.display_start|default:""}" readonly>
-					<span class="input-group-addon">～</span>
-					<input type="text" class="input-sm form-control datepicker" name="display_end" id="display_end"  value="{$arr_post.display_end|default:""}" readonly>
+			<label class="col-sm-2 control-label">税抜き単価</label>
+			<div class="col-sm-3">
+				<div class="input-group m-b">
+					<span class="input-group-addon">￥</span>
+					<input type="number" class="form-control" name="price" id="price" value="{$arr_post.price|default:""}" />
 				</div>
 			</div>
 		</div>
 		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">スペック（種類）追加</label>
+			<div class="col-sm-9">
+				<p class="mb10 x-large"> <a href="javascript:void(0);" class="add_group_parts btn btn-primary btn-s"><i class="fa fa-r fa-plus-circle"></i>追加</a></p>
+			</div>
+		</div>
+		<div id="item_container">
+			{foreach from=$arr_post.detail item="group_parts" key="key" name="loopMonthList"}
+			<div class="group_parts_loop" width="100%" data-sirial="{$key}">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">スペック（種類）</label>
+					<div class="col-sm-6">
+						{if $message.ng[detail_|cat:$key|cat:"_type"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_type"]}</p>{/if}
+						<input type="text" class="form-control group_parts_type" name="detail[{$key}][type]" id="group_parts_type_{$key}"  size="60" value="{$group_parts.type|default:""}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">説明</label>
+					<div class="col-sm-9">
+						{if $message.ng[detail_|cat:$key|cat:"_comment"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_comment"]}</p>{/if}
+						<textarea name="detail[{$key}][comment]" id="group_parts_comment_{$key}" rows="3" class="form-control text group_parts_comment">{$group_parts.comment|default:""}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+				    <label class="col-sm-2 control-label">税抜き単価</label>
+				    <div class="col-sm-3">
+						{if $message.ng[detail_|cat:$key|cat:"_price"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_price"]}</p>{/if}
+				        <div class="input-group m-b">
+				            <span class="input-group-addon">￥</span>
+				            <input type="number" class="form-control group_parts_type" name="detail[{$key}][price]" id="group_parts_comment_{$key}" value="{$group_parts.price|default:""}" />
+				        </div>
+				    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-9 pos_ar">
+						<a href="javascript:void(0);" class="btn btn-danger detail-trash"><i class="icon-trash"></i> 削除</a>
+					</div>
+				</div>
+				<div class="hr-line-dashed mb50"></div>
+			</div>
+				{/foreach}
+		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">表示／非表示</label>
 			<div class="col-sm-6">

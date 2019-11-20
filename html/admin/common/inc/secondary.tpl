@@ -37,10 +37,10 @@
 			</li>
 
 			<li{if $action == "rental"} class="active"{/if}>
-				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル管理</span><span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル品管理</span><span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level collapse">
-					<li {if $manage == rental}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental/">レンタル一覧</a></li>
-					<li {if $manage == rental_category}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental_category/">レンタルカテゴリ一覧</a></li>
+					<li {if $manage == rental}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental/">レンタル品一覧</a></li>
+					<li {if $manage == rental_category}class="active"{/if}><a href="{$_ADMIN.home}/contents/rental_category/">レンタル品カテゴリ一覧</a></li>
 				</ul>
 			</li>
 

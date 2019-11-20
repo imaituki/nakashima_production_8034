@@ -16,20 +16,19 @@ require "./config.ini";
 //----------------------------------------
 $message = NULL;
 
-
 //----------------------------------------
 //  新規登録処理
 //----------------------------------------
 // 操作クラス
-$objManage  = new DB_manage( _DNS );
-$mainObject = new $class_name( $objManage, $_ARR_IMAGE, $_ARR_FILE );
+$objManage  = new DB_manage( _DNS,1 );
+$mainObject = new $class_name( $objManage, $_ARR_IMAGE );
 
 // データ変換
 $arr_post = $mainObject->convert( $arr_post );
 
 // データチェック
 $message = $mainObject->check( $arr_post, 'insert' );
-
+disp_arr($message );
 
 // エラーチェック
 if( empty( $message["ng"] ) ) {
@@ -44,8 +43,23 @@ if( empty( $message["ng"] ) ) {
 	if( $res == false ) {
 		$mainObject->_DBconn->RollbackTrans();
 		$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
-	}
+	}else{
 
+		if( !empty( $arr_detail ) && is_array( $arr_detail ) ){
+			$Id_Group = $objGroup->_DBconn->Insert_ID();
+
+			foreach ( $arr_detail as $key => $val ) {
+				$val["id_group"] = $Id_Group;
+				// 登録処理
+				$res2 = $objGroup->insert_detail( $val );
+			}
+		}
+		// ロールバック
+			if( $res2 == false ) {
+				$objGroup->_DBconn->RollbackTrans();
+				$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
+			}
+		}
 	// コミット
 	$mainObject->_DBconn->CompleteTrans();
 
@@ -74,14 +88,9 @@ if( empty( $message["ng"] ) ) {
 	$smarty->compile_dir .= _CONTENTS_DIR. "/";
 
 	// テンプレートに設定
-	$smarty->assign( "message" , $message  );
-	$smarty->assign( "arr_post", $arr_post );
-	if( !empty($_ARR_IMAGE) ){
-		$smarty->assign( '_ARR_IMAGE', $_ARR_IMAGE );
-	}
-	if( !empty($_ARR_FILE) ){
-		$smarty->assign( '_ARR_FILE', $_ARR_FILE );
-	}
+	$smarty->assign( "message"    , $message    );
+	$smarty->assign( "arr_post"   , $arr_post   );
+	$smarty->assign( '_ARR_IMAGE' , $_ARR_IMAGE );
 
 	// オプション設定
 	$smarty->assign( 'OptionRentalCategory' , $OptionRentalCategory  );

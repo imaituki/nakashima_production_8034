@@ -33,17 +33,6 @@
 						<div class="row">
 							<form method="post" action="" id="formSearch" enctype="multipart/form-data">
 								<div class="col-sm-4">
-									<div class="form-group">
-										<label class="control-label" for="date_added">日付</label>
-										<div class="input-daterange input-group" id="datepicker">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="input-sm form-control datepicker" name="search_date_start" id="search_date_start" value="{$_SESSION.company.$_CONTENTS_DIR.search.POST.search_date_start|default:""}" readonly>
-											<span class="input-group-addon">～</span>
-											<input type="text" class="input-sm form-control datepicker" name="search_date_end" id="search_date_end"  value="{$_SESSION.company.$_CONTENTS_DIR.search.POST.search_date_end|default:""}" readonly>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-4">
 									<label class="control-label" for="search_keyword">キーワード</label>
 									<div class="input-group">
 										<input type="text" id="search_keyword" name="search_keyword" value="{$_SESSION.admin.$_CONTENTS_DIR.search.POST.search_keyword|default:""}" placeholder="キーワード" class="form-control">

@@ -10,6 +10,10 @@
 //----------------------------------------
 require "./config.ini";
 
+//----------------------------------------
+// 初期値設定
+//----------------------------------------
+$_POST["detail"][0] = "";
 
 //----------------------------------------
 //  表示
@@ -22,13 +26,9 @@ $smarty->compile_dir .= _CONTENTS_DIR. "/";
 if( !empty($_ARR_IMAGE) ){
 	$smarty->assign( '_ARR_IMAGE', $_ARR_IMAGE );
 }
-if( !empty($_ARR_FILE) ){
-	$smarty->assign( '_ARR_FILE', $_ARR_FILE );
-}
 
 // オプション設定
 $smarty->assign( 'OptionRentalCategory' , $OptionRentalCategory  );
-
 
 // 表示
 $smarty->display( "new.tpl" );

@@ -31,7 +31,7 @@ sortableInit();
 			<td class="move_i">{if $arr_post.mode|default:"" == "search"}{else}<i class="fa fa-sort"><span></span></i>{/if}</td>
 			<td><a href="./edit.php?id={$rental.$_CONTENTS_ID}">{$rental.name}</a></td>
 			<td>
-				{$OptionRentalCategory[$rental.rental_category]}
+				{$OptionRentalCategory[$rental.id_rental_category]}
 			</td>
 			<td class="pos_al">
 				<div class="lightBoxGallery">

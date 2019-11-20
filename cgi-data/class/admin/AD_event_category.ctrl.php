@@ -21,7 +21,7 @@ class AD_event_category {
 	var $_CtrTablePk = "id_event_category";
 
 	// コントロール機能（ログ用）
-	var $_CtrLogName = "レンタルカテゴリマスタ";
+	var $_CtrLogName = "レンタル品カテゴリマスタ";
 
 	// ファイル操作クラス
 	var $_FN_file = null;

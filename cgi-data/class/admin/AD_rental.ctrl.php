@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------------
 // 作成日: 2016/11/01
 // 作成者: 鈴木
-// 内  容: お知らせ操作クラス
+// 内  容: レンタル品操作クラス
 //----------------------------------------------------------------------------
 
 //-------------------------------------------------------
@@ -17,11 +17,11 @@ class AD_rental {
 	var $_DBconn = null;
 
 	// 主テーブル
-	var $_CtrTable   = "t_rental";
+	var $_CtrTable   = "mst_rental";
 	var $_CtrTablePk = "id_rental";
 
 	// コントロール機能（ログ用）
-	var $_CtrLogName = "レンタル";
+	var $_CtrLogName = "レンタル品";
 
 	// ファイル操作クラス
 	var $_FN_file = null;
@@ -100,7 +100,7 @@ class AD_rental {
 		$objInputConvert = new FN_input_convert( $arrVal, "UTF-8" );
 
 		// 変換エントリー
-		//$objInputConvert->entryConvert( "url", array( "ENC_KANA" ), "a" );
+		$objInputConvert->entryConvert( "price", array( "ENC_KANA" ), "a" );
 
 		// 変換実行
 		$objInputConvert->execConvertAll();
@@ -124,26 +124,10 @@ class AD_rental {
 		$objInputCheck = new FN_input_check( "UTF-8" );
 
 		// チェックエントリー
-		$objInputCheck->entryData( "開催日（開始日）", "date_start", $arrVal["date_start"], array( "CHECK_EMPTY","CHECK_DATE" ), null, null );
-		$objInputCheck->entryData( "開催日（終了日）", "date_end", $arrVal["date_end"], array( "CHECK_EMPTY","CHECK_DATE" ), null, null );
-		$objInputCheck->entryData( "開催日（終了日）", "date_end", date( "Y-m-d", strtotime( $arrVal["date_end"] ) ), array( "CHECK_DATE_START_TERM" ), date( "Y-m-d", strtotime( $arrVal["date_start"] ) ), null );
-		$objInputCheck->entryData( "開始時間(時)", "start_time", $arrVal["start_time"]["Hour"], array( "CHECK_EMPTY" ), null, null );
-		$objInputCheck->entryData( "開始時間(分)", "start_time", $arrVal["start_time"]["Minute"], array( "CHECK_EMPTY" ), null, null );
-		$objInputCheck->entryData( "開始時間", "start_time", $arrVal["start_time"]["Hour"] . ":" . $arrVal["start_time"]["Minute"] . ":00", array( "CHECK_TIME" ), null, null );
-		$objInputCheck->entryData( "終了時間(時)", "end_time", $arrVal["end_time"]["Hour"], array( "CHECK_EMPTY" ), null, null );
-		$objInputCheck->entryData( "終了時間(分)", "end_time", $arrVal["end_time"]["Minute"], array( "CHECK_EMPTY" ), null, null );
-		$objInputCheck->entryData( "終了時間", "end_time", $arrVal["end_time"]["Hour"] . ":" . $arrVal["end_time"]["Minute"] . ":00", array( "CHECK_TIME_START_TERM" ), $arrVal["start_time"]["Hour"] . ":" . $arrVal["start_time"]["Minute"] . ":00", null );
-		$objInputCheck->entryData( "カテゴリー", "rental_category", $arrVal["rental_category"][0], array( "CHECK_EMPTY_ZERO", "CHECK_MIN_MAX_LEN" ), 0, 255 );
-		$objInputCheck->entryData( "タイトル", "title", $arrVal["title"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_LEN" ), 0, 255 );
-		$objInputCheck->entryData( "地域", "area", $arrVal["area"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_LEN" ), 0, 255 );
+		$objInputCheck->entryData( "カテゴリー", "id_rental_category", $arrVal["id_rental_category"][0], array( "CHECK_EMPTY_ZERO", "CHECK_MIN_MAX_LEN" ), 0, 255 );
+		$objInputCheck->entryData( "商品名・名前", "name", $arrVal["name"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_LEN" ), 0, 255 );
+		$objInputCheck->entryData( "単位", "unit", $arrVal["unit"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_LEN" ), 0, 255 );
 
-		$objInputCheck->entryData( "掲載期間（設定する／設定しない）", "display_indefinite", $arrVal["display_indefinite"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_NUM" ), 0, 1 );
-
-		if( $arrVal["display_indefinite"] == 0 ) {
-			$objInputCheck->entryData( "掲載開始", "display_start", $arrVal["display_start"], array( "CHECK_DATE" ), null, null );
-			$objInputCheck->entryData( "掲載終了", "display_end", $arrVal["display_end"], array( "CHECK_DATE" ), null, null );
-			$objInputCheck->entryData( "掲載終了", "display_end", $arrVal["display_end"], array( "CHECK_DATE_START_TERM" ), $arrVal["display_start"], null );
-		}
 		$objInputCheck->entryData( "表示／非表示", "display_flg", $arrVal["display_flg"], array( "CHECK_EMPTY", "CHECK_MIN_MAX_NUM" ), 0, 1 );
 
 		if( (strcmp($mode, "insert") == 0) ) {
@@ -165,24 +149,32 @@ class AD_rental {
 			}
 		}
 
+		if( is_array( $arrVal["detail"] ) ){
+			// 入力確認
+			foreach ( $arrVal["detail"][0] as $key => $val ) {
+				if( !empty( $val ) ){
+					$check_flg = 1;
+				}
+			}
+			if( $check_flg == 1 ){
+				// detail チェック
+				foreach ($arrVal["detail"] as $key => $value) {
+					// チェックエントリー
+					$objInputCheck->entryData( "スペック（種類）"        , "detail_".$key."_type"  , $value["type"]  , array( "CHECK_EMPTY"), null, null );
+					$objInputCheck->entryData( "税抜き単価"        , "detail_".$key."_price"     , $value["price"]    , array( "CHECK_EMPTY"), 0, 255 );
+				}
+			}
+
+		}
+
+
 		// チェックエントリー（UPDATE時）
 		if( ( strcmp( $mode, "update" ) == 0 ) ) {
-			$objInputCheck->entryData( "セミナーID", "all", $arrVal["id_rental"], array( "CHECK_EMPTY", "CHECK_NUM" ), null, null );
+			$objInputCheck->entryData( "レンタル品ID", "all", $arrVal["id_rental"], array( "CHECK_EMPTY", "CHECK_NUM" ), null, null );
 		}
 
 		// チェック実行
 		$res["ng"] = $objInputCheck->execCheckAll();
-
-		// データ加工
-		if( $arrVal["display_indefinite"] == 0 ) {
-			$arrVal["display_start"] = ( !empty( $arrVal["display_start"] ) ) ? date( "Y-m-d 00:00:00", strtotime( $arrVal["display_start"] ) ) : NULL;
-			$arrVal["display_end"]   = ( !empty( $arrVal["display_end"]   ) ) ? date( "Y-m-d 23:59:59", strtotime( $arrVal["display_end"]   ) ) : NULL;
-		} else {
-			$arrVal["display_start"] = null;
-			$arrVal["display_end"]   = null;
-		}
-
-
 
 		// 戻り値
 		return $res;
@@ -195,7 +187,7 @@ class AD_rental {
 	// 引  数: $arrVal - 登録データ（ 'カラム名' => '値' ）
 	//       : $arrSql - 登録データ（ 'カラム名' => 'SQL' ）
 	// 戻り値: なし
-	// 内  容: お知らせデータ登録
+	// 内  容: レンタル品データ登録
 	//-------------------------------------------------------
 	function insert( $arrVal, $arrSql = null ) {
 
@@ -223,23 +215,46 @@ class AD_rental {
 
 	}
 
+	//-------------------------------------------------------
+	// 関数名：insert_detail
+	// 引  数：$arrVal - 登録データ（ 'カラム名' => '値' ）
+	//       ：$arrSql - 登録データ（ 'カラム名' => 'SQL' ）
+	// 戻り値：なし
+	// 内  容：スペックデータ登録
+	//-------------------------------------------------------
+	function insert_detail( $arrVal, $arrSql = null ) {
+
+		// 登録データの作成
+		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
+
+
+
+		$arrVal["entry_date"]  = date( "Y-m-d H:i:s" );
+		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
+
+		// 登録
+		$res = $this->_DBconn->insert( $this->_CtrTable2, $arrVal, $arrSql );
+
+		// 戻り値
+		return $res;
+
+	}
+
 
 	//-------------------------------------------------------
 	// 関数名: update
 	// 引  数: $arrVal - 登録データ（ 'カラム名' => '値' ）
 	//       : $arrSql - 登録データ（ 'カラム名' => 'SQL' ）
 	// 戻り値: なし
-	// 内  容: お知らせデータ更新
+	// 内  容: レンタル品データ更新
 	//-------------------------------------------------------
 	function update( $arrVal, $arrSql = null ) {
 
-		// 写真削除とアップ
+		// 写真削除
 		$this->_FN_file->delImage( $this->_ARR_IMAGE, $arrVal["_delete_image"], $arrVal );
+		// アップ処理
 		$ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
 
-		// ファイル削除とアップ処理
-		$this->_FN_file->delFile( $this->_ARR_FILE, $arrVal["_delete_file"], $arrVal );
-		$FileInfo  = $this->_FN_file->upFile( $_FILES, $this->_ARR_FILE, $arrVal );
 
 		// 登録データの作成
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
@@ -258,12 +273,34 @@ class AD_rental {
 
 	}
 
+	//-------------------------------------------------------
+	// 関数名：update_detail
+	// 引  数：$arrVal - 登録データ（ 'カラム名' => '値' ）
+	//       ：$arrSql - 登録データ（ 'カラム名' => 'SQL' ）
+	// 戻り値：なし
+	// 内  容：スペックデータ登録
+	//-------------------------------------------------------
+	function update_detail( $arrVal, $arrSql = null ) {
+
+		// 登録データの作成
+		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
+
+		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
+
+		// 登録
+		$res = $this->_DBconn->update( $this->_CtrTable2, $arrVal, $arrSql );
+
+		// 戻り値
+		return $res;
+
+	}
+
 
 	//-------------------------------------------------------
 	// 関数名: delete
-	// 引  数: $id - 削除するお知らせID
+	// 引  数: $id - 削除するレンタル品ID
 	// 戻り値: true - 正常, false - 異常
-	// 内  容: お知らせデータ削除
+	// 内  容: レンタル品データ削除
 	//-------------------------------------------------------
 	function delete( $id ) {
 
@@ -370,8 +407,8 @@ class AD_rental {
 	// 関数名: GetSearchList
 	// 引  数: $search - 検索条件
 	//       : $option - 取得条件
-	// 戻り値: お知らせリスト
-	// 内  容: お知らせ検索を行いデータを取得
+	// 戻り値: レンタル品リスト
+	// 内  容: レンタル品検索を行いデータを取得
 	//-------------------------------------------------------
 	function GetSearchList( $search, $option = null ) {
 
@@ -395,7 +432,7 @@ class AD_rental {
 		}
 
 		if( !empty($search["search_category"]) ){
-			$creation_kit["where"] .= " AND rental_category = ". $search["search_category"]. " ";
+			$creation_kit["where"] .= " AND id_rental_category = ". $search["search_category"]. " ";
 		}
 		// 取得条件
 		if( empty( $option ) ) {
@@ -425,9 +462,9 @@ class AD_rental {
 
 	//-------------------------------------------------------
 	// 関数名: GetIdRow
-	// 引  数: $id - お知らせID
-	// 戻り値: お知らせ
-	// 内  容: お知らせを1件取得する
+	// 引  数: $id - レンタル品ID
+	// 戻り値: レンタル品
+	// 内  容: レンタル品を1件取得する
 	//-------------------------------------------------------
 	function GetIdRow( $id ) {
 
@@ -458,14 +495,14 @@ class AD_rental {
 	//-------------------------------------------------------
 	// 関数名: GetOption
 	// 引  数: なし
-	// 戻り値: お知らせカテゴリーオプション
-	// 内  容: お知らせカテゴリーをオプション化して取得
+	// 戻り値: レンタル品カテゴリーオプション
+	// 内  容: レンタル品カテゴリーをオプション化して取得
 	//-------------------------------------------------------
 	function GetOption() {
 
 		// SQL配列
-		$creation_kit = array(  "select" => "rental_category, title",
-								"from"   => "t_rental_category",
+		$creation_kit = array(  "select" => "id_rental_category, title",
+								"from"   => "t_id_rental_category",
 								"where"  => "delete_flg = 0 AND display_flg = 1",
 								"order"  => "display_num ASC"
 							);
@@ -475,7 +512,7 @@ class AD_rental {
 		// オプション用に成形
 		if( !empty($arr_option) ){
 			foreach( $arr_option as $val ){
-				$res[$val["rental_category"]] = $val["title"];
+				$res[$val["id_rental_category"]] = $val["title"];
 			}
 		}
 

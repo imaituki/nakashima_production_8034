@@ -12,6 +12,7 @@
 		<script type="text/javascript" src="{$_ADMIN.home}/common/js/ckeditor/ckeditor.js"></script>
 		<link rel="stylesheet" href="{$_ADMIN.home}/common/js/chosen/chosen.css" />
 		<script type="text/javascript" src="{$_ADMIN.home}/common/js/chosen/chosen.jquery.min.js"></script>
+		<script type="text/javascript" src="../js/input.js"></script>
 	</head>
 	<body class="fixed-sidebar no-skin-config">
 		<div id="wrapper">
