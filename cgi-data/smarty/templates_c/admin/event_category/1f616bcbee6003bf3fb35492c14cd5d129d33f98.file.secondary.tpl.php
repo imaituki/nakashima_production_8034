@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-19 18:44:56
+<?php /* Smarty version Smarty-3.1.18, created on 2019-11-20 16:13:07
          compiled from "/home/jwcc/8034/html/admin/common/inc/secondary.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2330414885cd2803b8bb793-80469016%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1218793535dd3a4fd059485-41202771%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1f616bcbee6003bf3fb35492c14cd5d129d33f98' => 
     array (
       0 => '/home/jwcc/8034/html/admin/common/inc/secondary.tpl',
-      1 => 1574156250,
+      1 => 1574230435,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2330414885cd2803b8bb793-80469016',
+  'nocache_hash' => '1218793535dd3a4fd059485-41202771',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.18',
-  'unifunc' => 'content_5cd2803b8d8c93_01426363',
+  'unifunc' => 'content_5dd3a4fd14d4e3_20439932',
   'variables' => 
   array (
     'manage' => 0,
@@ -25,7 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5cd2803b8d8c93_01426363')) {function content_5cd2803b8d8c93_01426363($_smarty_tpl) {?><nav class="navbar-default navbar-static-side" role="navigation">
+<?php if ($_valid && !is_callable('content_5dd3a4fd14d4e3_20439932')) {function content_5dd3a4fd14d4e3_20439932($_smarty_tpl) {?><nav class="navbar-default navbar-static-side" role="navigation">
 	<div class="sidebar-collapse">
 		<ul class="nav metismenu" id="side-menu" style="padding-bottom:30px;">
 			<li class="nav-header">
@@ -47,12 +47,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			</li>
 
 			<li<?php if ($_smarty_tpl->tpl_vars['action']->value=="rental") {?> class="active"<?php }?>>
-				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル管理</span><span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル品管理</span><span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level collapse">
 					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='rental') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/rental/">レンタル一覧</a></li>
+/contents/rental/">レンタル品一覧</a></li>
 					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='rental_category') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/rental_category/">レンタルカテゴリ一覧</a></li>
+/contents/rental_category/">レンタル品カテゴリ一覧</a></li>
 				</ul>
 			</li>
 

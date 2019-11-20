@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-19 18:44:56
+<?php /* Smarty version Smarty-3.1.18, created on 2019-11-20 19:32:20
          compiled from "/home/jwcc/8034/html/admin/common/inc/secondary.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2330414885cd2803b8bb793-80469016%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:11450009565dd4873abd3c93-55362072%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1f616bcbee6003bf3fb35492c14cd5d129d33f98' => 
     array (
       0 => '/home/jwcc/8034/html/admin/common/inc/secondary.tpl',
-      1 => 1574156250,
+      1 => 1574245341,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2330414885cd2803b8bb793-80469016',
+  'nocache_hash' => '11450009565dd4873abd3c93-55362072',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.18',
-  'unifunc' => 'content_5cd2803b8d8c93_01426363',
+  'unifunc' => 'content_5dd4873ac3fd12_31453848',
   'variables' => 
   array (
     'manage' => 0,
@@ -25,7 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5cd2803b8d8c93_01426363')) {function content_5cd2803b8d8c93_01426363($_smarty_tpl) {?><nav class="navbar-default navbar-static-side" role="navigation">
+<?php if ($_valid && !is_callable('content_5dd4873ac3fd12_31453848')) {function content_5dd4873ac3fd12_31453848($_smarty_tpl) {?><nav class="navbar-default navbar-static-side" role="navigation">
 	<div class="sidebar-collapse">
 		<ul class="nav metismenu" id="side-menu" style="padding-bottom:30px;">
 			<li class="nav-header">
@@ -36,26 +36,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			<li<?php if ($_smarty_tpl->tpl_vars['manage']->value=="information") {?> class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
 /contents/information/"><i class="fa fa-info-circle"></i><span class="nav-label">お知らせ管理</span></a></li>
 
-			<li<?php if ($_smarty_tpl->tpl_vars['action']->value=="event") {?> class="active"<?php }?>>
-				<a href="#"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><span class="nav-label">イベント・会場設営管理</span><span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level collapse">
-					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='event') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/event/">イベント・会場設営一覧</a></li>
-					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='event_category') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/event_category/">イベント・会場設営カテゴリ一覧</a></li>
-				</ul>
-			</li>
-
 			<li<?php if ($_smarty_tpl->tpl_vars['action']->value=="rental") {?> class="active"<?php }?>>
-				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル管理</span><span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-linux" aria-hidden="true"></i><span class="nav-label">レンタル品管理</span><span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level collapse">
 					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='rental') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/rental/">レンタル一覧</a></li>
+/contents/rental/">レンタル品一覧</a></li>
 					<li <?php if ($_smarty_tpl->tpl_vars['manage']->value=='rental_category') {?>class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/contents/rental_category/">レンタルカテゴリ一覧</a></li>
+/contents/rental_category/">レンタル品カテゴリ一覧</a></li>
 				</ul>
 			</li>
-
 
 			<li<?php if ($_smarty_tpl->tpl_vars['manage']->value=="estimate") {?> class="active"<?php }?>><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
 /contents/estimate/"><i class="fa fa-file-o" aria-hidden="true"></i></i><span class="nav-label">見積り管理</span></a></li>
