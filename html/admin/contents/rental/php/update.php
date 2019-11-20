@@ -16,7 +16,7 @@ require "./config.ini";
 //----------------------------------------
 // 操作クラス
 $objManage  = new DB_manage( _DNS );
-$mainObject = new $class_name( $objManage, $_ARR_IMAGE, $_ARR_FILE );
+$mainObject = new $class_name( $objManage, $_ARR_IMAGE);
 
 // データ変換
 $arr_post = $mainObject->convert( $arr_post );
@@ -30,13 +30,32 @@ if( empty( $message["ng"] ) ) {
 	// トランザクション
 	$mainObject->_DBconn->StartTrans();
 
+	$arr_detail = $arr_post["detail"];
+	unset( $arr_post["detail"] );
+
+
 	// 登録処理
 	$res = $mainObject->update( $arr_post );
 
-	// 失敗したらロールバック
+	// ロールバック
 	if( $res == false ) {
-		$mainObject->_DBconn->RollbackTrans();
+		$objGroup->_DBconn->RollbackTrans();
 		$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
+	}else{
+		if( !empty( $arr_detail ) && is_array( $arr_detail ) ){
+			$objGroup->_DBconn->delete( "t_renp_parts", "id_rentalp = " . $arr_post["id_rentalp"] );
+
+			foreach ( $arr_detail as $key => $val ) {
+				$val["id_rentalp"] = $arr_post["id_rentalp"];
+				// 登録処理
+				$res2 = $objGroup->insert_detail( $val );
+			}
+		}
+		// ロールバック
+		if( $res2 == false ) {
+			$objGroup->_DBconn->RollbackTrans();
+			$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
+		}
 	}
 
 	// コミット
@@ -61,25 +80,13 @@ if( empty( $message["ng"] ) ) {
 
 } else {
 
-	// データ加工
-	if( !empty($arr_post["display_start"]) ){
-		$arr_post["display_start"] = date( "Y/m/d", strtotime($arr_post["display_start"]) );
-	}
-	if( !empty($arr_post["display_end"]) ){
-		$arr_post["display_end"] = date( "Y/m/d", strtotime($arr_post["display_end"]) );
-	}
-
 	// 写真
 	if( !empty($_ARR_IMAGE) && is_array($_ARR_IMAGE) ){
 		foreach( $_ARR_IMAGE as $key => $val ) {
 			$arr_post[$val["name"]] = $arr_post["_" . $val["name"]."_now"];
 		}
 	}
-	if( !empty($_ARR_FILE) && is_array($_ARR_FILE) ){
-		foreach( $_ARR_FILE as $key => $val ) {
-			$arr_post[$val["name"]] = $arr_post["_" . $val["name"]."_now"];
-		}
-	}
+
 
 	// smarty設定
 	$smarty = new MySmarty("admin");
@@ -88,12 +95,8 @@ if( empty( $message["ng"] ) ) {
 	// テンプレートに設定
 	$smarty->assign( "message" , $message  );
 	$smarty->assign( "arr_post", $arr_post );
-	if( !empty($_ARR_IMAGE) ){
-		$smarty->assign( '_ARR_IMAGE', $_ARR_IMAGE );
-	}
-	if( !empty($_ARR_FILE) ){
-		$smarty->assign( '_ARR_FILE', $_ARR_FILE );
-	}
+	$smarty->assign( '_ARR_IMAGE', $_ARR_IMAGE );
+
 
 	// オプション設定
 	$smarty->assign( 'OptionRentalCategory' , $OptionRentalCategory  );

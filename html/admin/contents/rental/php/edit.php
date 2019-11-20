@@ -21,6 +21,11 @@ $mainObject = new $class_name( $objManage );
 // データ取得
 $_POST = $mainObject->GetIdRow( $arr_get["id"] );
 
+if( !empty( $_POST["id_rental"] ) ) {
+	// 事業所取得
+	$_POST["detail"] = $objGroup->GetSearchDetail( array( "search_id_rental" => $_POST["id_rental"] ) );
+}
+
 // クラス削除
 unset( $objManage  );
 unset( $mainObject );
@@ -30,14 +35,6 @@ unset( $mainObject );
 //----------------------------------------
 if( !empty($_POST[_CONTENTS_ID]) ) {
 
-	// データ加工
-	if( !empty($_POST["display_start"]) ){
-		$_POST["display_start"] = date( "Y/m/d", strtotime($_POST["display_start"]) );
-	}
-	if( !empty($_POST["display_end"]) ){
-		$_POST["display_end"] = date( "Y/m/d", strtotime($_POST["display_end"]) );
-	}
-
 	// smarty設定
 	$smarty = new MySmarty("admin");
 	$smarty->compile_dir .= _CONTENTS_DIR. "/";
@@ -46,14 +43,9 @@ if( !empty($_POST[_CONTENTS_ID]) ) {
 	if( !empty($_ARR_IMAGE) ){
 		$smarty->assign( '_ARR_IMAGE', $_ARR_IMAGE );
 	}
-	if( !empty($_ARR_FILE) ){
-		$smarty->assign( '_ARR_FILE', $_ARR_FILE );
-	}
-
 	// オプション設定
 	$smarty->assign( 'OptionRentalCategory' , $OptionRentalCategory  );
-
-
+	
 	// 表示
 	$smarty->display( "edit.tpl" );
 
