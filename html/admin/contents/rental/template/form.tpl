@@ -48,19 +48,6 @@
 			</div>
 		</div>
 		<div class="hr-line-dashed"></div>
-		{if $_ARR_IMAGE != NULL}
-			{include file=$template_image path=$_IMAGEFULLPATH dir=$_CONTENTS_DIR prefix="s_"}
-		{/if}
-		<div class="form-group">
-			<label class="col-sm-2 control-label">税抜き単価</label>
-			<div class="col-sm-3">
-				<div class="input-group m-b">
-					<span class="input-group-addon">￥</span>
-					<input type="number" class="form-control" name="price" id="price" value="{$arr_post.price|default:""}" />
-				</div>
-			</div>
-		</div>
-		<div class="hr-line-dashed"></div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">スペック（種類）追加</label>
 			<div class="col-sm-9">
@@ -94,6 +81,7 @@
 				        </div>
 				    </div>
 				</div>
+				
 				<div class="form-group">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-9 pos_ar">
