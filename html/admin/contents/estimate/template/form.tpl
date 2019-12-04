@@ -165,7 +165,7 @@
 										<!-- 消費税-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="{$est.tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<!-- 単価 (税込)-->
-										<td style="width:100px"><input type="text" class="form-control" name="estimate[ptice_tax][]" value="{$est.ptice_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="{$est.price_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<!-- 合計金額(税込)-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em); display:inline-block;" />円
 											<input type="hidden" name="estimate[id_estimate_detail][]" value="{$est.id_estimate_detail}" />
@@ -179,7 +179,7 @@
 										<td style="width:50px"><input type="text" class="form-control" name="estimate[unit][]" value="{$est.unit|default:''}" /></td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price][]" value="{$est.price|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="{$est.tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
-										<td style="width:100px"><input type="text" class="form-control" name="estimate[ptice_tax][]" value="{$est.ptice_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="{$est.price_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em);display:inline-block;" />円
 											<input type="hidden" name="estimate[id_estimate_detail][]" value="{$est.id_estimate_detail}" />
 											</td>

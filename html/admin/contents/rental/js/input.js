@@ -25,63 +25,26 @@ $(function () {
 		});
 		var sirial = Math.max.apply(null, sirials) + 1;
 
-		ck.find('.rental_parts_office').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][office]');
-			$(this).attr('id', 'rental_parts_office_' + sirial);
-			$(this).val([]);
-		});
-
-		ck.find('.rental_parts_office_name').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][office_name]');
-			$(this).attr('id', 'rental_parts_office_name_' + sirial);
+		ck.find('.rental_parts_type').each(function () {
+			$(this).attr('name', 'detail[' + sirial + '][type]');
+			$(this).attr('id', 'rental_parts_type_' + sirial);
 			$(this).val('');
 		});
 
-		ck.find('.rental_parts_director').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][director]');
-			$(this).attr('id', 'rental_parts_director_' + sirial);
-			$(this).val([]);
-		});
-
-		ck.find('.rental_parts_director_name').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][director_name]');
-			$(this).attr('id', 'rental_parts_director_name_' + sirial);
+		ck.find('.rental_parts_comment').each(function () {
+			$(this).attr('name', 'detail[' + sirial + '][comment]');
+			$(this).attr('id', 'rental_parts_comment_' + sirial);
 			$(this).val('');
 		});
 
-		ck.find('.rental_parts_zip').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][zip]');
-			$(this).attr('id', 'rental_parts_zip_' + sirial);
+		ck.find('.rental_parts_price').each(function () {
+			$(this).attr('name', 'detail[' + sirial + '][price]');
+			$(this).attr('id', 'rental_parts_price_' + sirial);
 			$(this).val('');
 		});
 
-		ck.find('.ajax_zip').each(function () {
-			$(this).attr('href', "javascript:AjaxZip3.zip2addr('detail[" + sirial + "][zip]','','detail[" + sirial + "][prefecture]','detail[" + sirial + "][address]');");
-		});
 
-		ck.find('.rental_parts_prefecture').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][prefecture]');
-			$(this).attr('id', 'rental_parts_prefecture_' + sirial);
-			$(this).val([]);
-		});
 
-		ck.find('.rental_parts_address').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][address]');
-			$(this).attr('id', 'rental_parts_address_' + sirial);
-			$(this).val('');
-		});
-
-		ck.find('.rental_parts_tel').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][tel]');
-			$(this).attr('id', 'rental_parts_tel_' + sirial);
-			$(this).val('');
-		});
-
-		ck.find('.rental_parts_fax').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][fax]');
-			$(this).attr('id', 'rental_parts_fax_' + sirial);
-			$(this).val('');
-		});
 
 		for (var count = 0; count <= 5; count++) {
 			ck.find('.rental_parts_image' + count).each(function () {

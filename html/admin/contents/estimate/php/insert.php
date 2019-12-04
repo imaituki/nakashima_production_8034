@@ -21,7 +21,7 @@ $message = NULL;
 //  新規登録処理
 //----------------------------------------
 // 操作クラス
-$objManage      = new DB_manage( _DNS );
+$objManage      = new DB_manage( _DNS,1 );
 $objEstimate = new AD_estimate( $objManage );
 
 // データ変換
