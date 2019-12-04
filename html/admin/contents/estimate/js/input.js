@@ -82,10 +82,10 @@ function DeleteRecord( n ){
 $(function() {
 	SUM();
 	// 金額計算
-	$(document).on( 'change keyup', 'input[name^="estimate[number]"], input[name^="estimate[price]"]', function(){
+	$(document).on( 'change keyup', 'input[name^="estimate[number]"], input[name^="estimate[ptice_tax]"]', function(){
 		var id=$(this).parents('.each_record').attr('id');
-		if( $('#'+id).find('input[name^="estimate[number]"]').val() != "" && $('#'+id).find('input[name^="estimate[price]"]').val() != "" ){
-			var total=$('#'+id).find('input[name^="estimate[number]"]').val()*$('#'+id).find('input[name^="estimate[price]"]').val();
+		if( $('#'+id).find('input[name^="estimate[number]"]').val() != "" && $('#'+id).find('input[name^="estimate[ptice_tax]"]').val() != "" ){
+			var total=$('#'+id).find('input[name^="estimate[number]"]').val()*$('#'+id).find('input[name^="estimate[ptice_tax]"]').val();
 			$('#'+id).find('input[name^="estimate[total]"]').val(total);
 		}
 		SUM();

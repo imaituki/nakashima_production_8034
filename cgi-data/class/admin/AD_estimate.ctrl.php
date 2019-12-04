@@ -123,7 +123,7 @@ class AD_estimate {
 		if( ( strcmp( $mode, "update" ) == 0 ) ) {
 			$objInputCheck->entryData( "ID", "all", $arrVal["id_estimate"], array( "CHECK_EMPTY", "CHECK_NUM" ), null, null );
 		}
-		// 見積内容
+/*		// 見積内容
 		if( !empty( $arrVal["estimate"]["title"] ) && is_array( $arrVal["estimate"]["title"] ) ){
 			foreach( $arrVal["estimate"]["title"] as $key => $val ){
 				$objInputCheck->entryData( "内容", "title", $val, array( "CHECK_EMPTY","CHECK_MIN_MAX_LEN" ), 0, 255 );
@@ -144,7 +144,7 @@ class AD_estimate {
 				$objInputCheck->entryData( "金額", "total", $val, array( "CHECK_EMPTY","CHECK_POINT_NUM" ), null, null );
 			}
 		}
-
+*/
 		// チェック実行
 		$res["ng"] = $objInputCheck->execCheckAll();
 
@@ -204,18 +204,27 @@ class AD_estimate {
 		// 登録データの作成
 		$estimate = $arrVal["estimate"];
 		unset( $arrVal["estimate"] );
+
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
 		$arrVal["entry_date"]  = date( "Y-m-d H:i:s" );
 		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
 
+		$arrVal["date_start"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_start"] . " " . implode( ":", $arrVal["start_time"] ) . ":00" ) );
+		$arrVal["date_end"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_end"] . " " . implode( ":", $arrVal["end_time"] ) . ":59" ) );
+
+		unset( $arrVal["start_time"] );
+		unset( $arrVal["end_time"]   );
+
 		// 登録
 		$res = $this->_DBconn->insert( $this->_CtrTable, $arrVal, $arrSql );
-
+/*
 		if( $res == false ){
 			return false;
 		}
-
+*/
 		$id_estimate = $this->_DBconn->Insert_ID();
+
+disp_arr($estimate); exit;
 
 		if( !empty( $estimate ) && is_array( $estimate ) ){
 			foreach( $estimate as $key => $val ){
@@ -356,63 +365,59 @@ class AD_estimate {
 	}
 
 
-	//-------------------------------------------------------
-	// 関数名：GetSearchList
-	// 引  数：$search - 検索条件
-	//       ：$option - 取得条件
-	// 戻り値：リスト
-	// 内  容：検索を行いデータを取得
-	//-------------------------------------------------------
-	function GetSearchList( $search, $option = null ) {
 
-		// SQL配列
-		$creation_kit = array(  "select" => "*",
-								"from"   => $this->_CtrTable,
-								"where"  => "1 ",
-								"order"  => "date DESC, update_date DESC"
-							);
+		//-------------------------------------------------------
+		// 関数名: GetSearchList
+		// 引  数: $search - 検索条件
+		//       : $option - 取得条件
+		// 戻り値: お知らせリスト
+		// 内  容: お知らせ検索を行いデータを取得
+		//-------------------------------------------------------
+		function GetSearchList( $search, $option = null ) {
 
-		// 検索条件
-		if( !empty( $search["search_keyword"] ) ) {
-			$creation_kit["where"] .= "AND ( " . $this->_DBconn->createWhereSql( $search["search_keyword"], "name", "LIKE", "OR", "%string%" ) . " ) OR ( " . $this->_DBconn->createWhereSql( $search["search_keyword"], "company", "LIKE", "OR", "%string%" ) . " )  ";
+			// SQL配列
+			$creation_kit = array(  "select" => "*",
+									"from"   => $this->_CtrTable,
+									"where"  => "1 ",
+									"order"  => "date_start desc"
+								);
+
+			// 検索条件
+			if( !empty( $search["search_keyword"] ) ) {
+				$creation_kit["where"] .= "AND ( " . $this->_DBconn->createWhereSql( $search["search_keyword"], "title", "LIKE", "OR", "%string%" ) . " ) ";
+			}
+
+			if( !empty( $search["search_date_start"] ) ) {
+				$creation_kit["where"] .= "AND " . $this->_DBconn->createWhereSql( "'" . $search["search_date_start"] . "'", $this->_CtrTable . ".date", " >= ", null, null ) . " ";
+			}
+			if( !empty( $search["search_date_end"] ) ) {
+				$creation_kit["where"] .= "AND " . $this->_DBconn->createWhereSql( "'" . $search["search_date_end"] . "'", $this->_CtrTable . ".date", " <= ", null, null ) . " ";
+			}
+
+			// 取得条件
+			if( empty( $option ) ) {
+
+				// ページ切り替え配列
+				$_PAGE_INFO = array( "PageNumber"      => ( !empty( $search["page"] ) ) ? $search["page"] : 1,
+									 "PageShowLimit"   => _PAGESHOWLIMIT,
+									 "PageNaviLimit"   => _PAGENAVILIMIT,
+									 "LinkSeparator"   => " | ",
+									 "PageUrlFreeMode" => 1,
+									 "PageFileName"    => "javascript:changePage(%d);" );
+
+				// オプション
+				$option = array( "fetch" => _DB_FETCH_ALL,
+								 "page"  => $_PAGE_INFO );
+
+			}
+
+			// データ取得
+			$res = $this->_DBconn->selectCtrl( $creation_kit, $option );
+
+			// 戻り値
+			return $res;
+
 		}
-
-		if( !empty( $search["search_staff"] ) ) {
-			$creation_kit["where"] .= "AND staff = " . $search["search_staff"] . " ";
-		}
-
-		if( !empty( $search["search_date_start"] ) ) {
-			$creation_kit["where"] .= "AND " . $this->_DBconn->createWhereSql( "'" . $search["search_date_start"] . "'", $this->_CtrTable . ".date", " >= ", null, null ) . " ";
-		}
-		if( !empty( $search["search_date_end"] ) ) {
-			$creation_kit["where"] .= "AND " . $this->_DBconn->createWhereSql( "'" . $search["search_date_end"] . "'", $this->_CtrTable . ".date", " <= ", null, null ) . " ";
-		}
-
-		// 取得条件
-		if( empty( $option ) ) {
-
-			// ページ切り替え配列
-			$_PAGE_INFO = array( "PageNumber"      => ( !empty( $search["page"] ) ) ? $search["page"] : 1,
-								 "PageShowLimit"   => _PAGESHOWLIMIT,
-								 "PageNaviLimit"   => _PAGENAVILIMIT,
-								 "LinkSeparator"   => " | ",
-								 "PageUrlFreeMode" => 1,
-								 "PageFileName"    => "javascript:changePage(%d);" );
-
-			// オプション
-			$option = array( "fetch" => _DB_FETCH_ALL,
-							 "page"  => $_PAGE_INFO );
-
-		}
-
-		// データ取得
-		$res = $this->_DBconn->selectCtrl( $creation_kit, $option );
-
-		// 戻り値
-		return $res;
-
-	}
-
 
 	//-------------------------------------------------------
 	// 関数名：GetIdRow

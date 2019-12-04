@@ -11,7 +11,7 @@
 				<tbody>
 					{foreach from=$t_estimate item="estimate" name="loopestimate"}
 					<tr>
-						<td>{$estimate.date|date_format:"%Y/%m/%d"}</td>
+						<td>{$estimate.estimate_date|date_format:"%Y/%m/%d"}</td>
 						<td><a href="./edit.php?id={$estimate.id_estimate}">{if $estimate.company}{$estimate.company|default:""}<br />{/if}{if $estimate.name}{$estimate.name|default:""}様{/if}</a></td>
 						<td class="pos_ac">
 							<a href="./export.php?id={$estimate.id_estimate}" target="_blank" class="btn btn-info">見積書</a>

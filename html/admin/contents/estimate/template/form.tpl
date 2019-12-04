@@ -52,26 +52,32 @@
 				    </div>
 				    <div class="hr-line-dashed"></div>
 					<div class="form-group required">
-						<label class="col-sm-2 control-label">貸出期間（開催日）</label>
-						<div style="display:flex;">
-							<div class="col-sm-2">
+						<label class="col-md-2 control-label">貸出期間（開催日）</label>
+						<div class="col-md-10">
+							<div class="col-md-3">
 								{if $message.ng.date_start|default:"" != NULL}<p class="error">{$message.ng.date_start}</p>{/if}
-								<div class="input-daterange input-group" id="datepicker">
+								<div class="input-daterange input-group" style="    margin: 0 auto;">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input type="text" class="input-sm form-control dtp datepicker" name="date_start" id="date_start" value="{$arr_post.date_start|default:''}" readonly>
 								</div>
 							</div>
-							<div class="col-sm-1" style="vertical-align: middle; align-items: center; display: flex;">～</div>
-							<div class="col-sm-2">
+							<div class="col-md-2" style="display:flex;">
+								{html_select_time field_array=start_time prefix="" field_separator="\n:\n" display_seconds=false minute_interval=10 time=$arr_post.start_time|strtotime|default:$smarty.now}
+							</div>
+							<div class="col-md-1"><p class="pos_ac">～</p></div>
+							<div class="col-md-3">
 								{if $message.ng.date_end|default:"" != NULL}<p class="error">{$message.ng.date_end}</p>{/if}
-								<div class="input-daterange input-group" id="datepicker">
+								<div class="input-daterange input-group" style="    margin: 0 auto;">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input type="text" class="input-sm form-control dtp datepicker" name="date_end" id="date_end" value="{$arr_post.date_end|default:''}" readonly>
 								</div>
 							</div>
+							<div class="col-md-2" style="display:flex;">
+								{html_select_time field_array=end_time prefix="" field_separator="\n:\n" display_seconds=false minute_interval=10 time=$arr_post.end_time|strtotime|default:$smarty.now}
+							</div>
 						</div>
 					</div>
-					<div class="hr-line-dashed"></div>
+					{*<div class="hr-line-dashed"></div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">貸出時間</label>
 						<div class="col-sm-6">
@@ -79,7 +85,7 @@
 						{if $message.ng.end_time|default:"" != NULL}<p class="error">{$message.ng.end_time}</p>{/if}
 						{html_select_time field_array=start_time prefix="" field_separator="\n:\n" display_seconds=false minute_interval=10 time=$arr_post.start_time|strtotime|default:$smarty.now}&nbsp;～{html_select_time field_array=end_time prefix="" field_separator="\n:\n" display_seconds=false minute_interval=10 time=$arr_post.end_time|strtotime|default:$smarty.now}
 						</div>
-					</div>
+					</div>*}
 					<div class="hr-line-dashed"></div>
 					   {literal}<style>.required label.control-label._label2:before { background:unset; color: #1AB394; border: 1px solid #1AB394;}</style>{/literal}
 					<div class="form-group required">
@@ -148,13 +154,20 @@
 								</thead>
 								<tbody>
 									<tr id="base_record" style="display:none;">
+										<!-- 内容-->
 										<td><input type="text" class="form-control" name="estimate[title][]" value="{$est.title|default:''}" list="titles" /></td>
+										<!-- 数量-->
 										<td style="width:50px"><input type="text" class="form-control" name="estimate[number][]" value="{$est.number|default:''}" /></td>
+										<!-- 単位-->
 										<td style="width:50px"><input type="text" class="form-control" name="estimate[unit][]" value="{$est.unit|default:''}" /></td>
+										<!-- 単価（税抜）-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price][]" value="{$est.price|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<!-- 消費税-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="{$est.tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<!-- 単価 (税込)-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[ptice_tax][]" value="{$est.ptice_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
-										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em);display:inline-block;" />円
+										<!-- 合計金額(税込)-->
+										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em); display:inline-block;" />円
 											<input type="hidden" name="estimate[id_estimate_detail][]" value="{$est.id_estimate_detail}" />
 											</td>
 										<td><a onclick="javascript:DeleteRecord(0);">✖</a></td>
