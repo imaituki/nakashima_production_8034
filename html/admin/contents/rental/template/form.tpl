@@ -51,24 +51,24 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">スペック（種類）追加</label>
 			<div class="col-sm-9">
-				<p class="mb10 x-large"> <a href="javascript:void(0);" class="add_group_parts btn btn-primary btn-s"><i class="fa fa-r fa-plus-circle"></i>追加</a></p>
+				<p class="mb10 x-large"> <a href="javascript:void(0);" class="add_rental_parts btn btn-primary btn-s"><i class="fa fa-r fa-plus-circle"></i>追加</a></p>
 			</div>
 		</div>
 		<div id="item_container">
-			{foreach from=$arr_post.detail item="group_parts" key="key" name="loopMonthList"}
-			<div class="group_parts_loop" width="100%" data-sirial="{$key}">
+			{foreach from=$arr_post.detail item="rental_parts" key="key" name="loopMonthList"}
+			<div class="rental_parts_loop" width="100%" data-sirial="{$key}">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">スペック（種類）</label>
 					<div class="col-sm-6">
 						{if $message.ng[detail_|cat:$key|cat:"_type"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_type"]}</p>{/if}
-						<input type="text" class="form-control group_parts_type" name="detail[{$key}][type]" id="group_parts_type_{$key}"  size="60" value="{$group_parts.type|default:""}" />
+						<input type="text" class="form-control rental_parts_type" name="detail[{$key}][type]" id="rental_parts_type_{$key}"  size="60" value="{$rental_parts.type|default:""}" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">説明</label>
 					<div class="col-sm-9">
 						{if $message.ng[detail_|cat:$key|cat:"_comment"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_comment"]}</p>{/if}
-						<textarea name="detail[{$key}][comment]" id="group_parts_comment_{$key}" rows="3" class="form-control text group_parts_comment">{$group_parts.comment|default:""}</textarea>
+						<textarea name="detail[{$key}][comment]" id="rental_parts_comment_{$key}" rows="3" class="form-control text rental_parts_comment">{$rental_parts.comment|default:""}</textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -77,11 +77,51 @@
 						{if $message.ng[detail_|cat:$key|cat:"_price"]|default:"" != NULL}<p class="error">{$message.ng[detail_|cat:$key|cat:"_price"]}</p>{/if}
 				        <div class="input-group m-b">
 				            <span class="input-group-addon">￥</span>
-				            <input type="number" class="form-control group_parts_type" name="detail[{$key}][price]" id="group_parts_comment_{$key}" value="{$group_parts.price|default:""}" />
+				            <input type="number" class="form-control rental_parts_type" name="detail[{$key}][price]" id="rental_parts_comment_{$key}" value="{$rental_parts.price|default:""}" />
 				        </div>
 				    </div>
 				</div>
-				
+
+				{foreach from=$_ARR_IMAGE item=file key=key2 name=loopFile}
+				{if $imgKey|default:"" == "" || ( $imgKey|default:"" != "" && $key == $imgKey|default:"" )}
+				<div class="form-group {if $file.notnull|default:'' == 1} required{/if}">
+					<label class="col-sm-2 control-label">{$file.column|default:""}</label>
+					<div class="col-sm-6">
+						{assign var='preview_name' value="_preview_image_`$file.name`"}
+						<div class="mb5">
+						{if $mode == 'edit'}
+							{if $rental_parts[$file.name]|default:"" == NULL}
+								<div class="load_image">
+									NOT IMAGE<br />
+								</div>
+							{else}
+								<div class="registered_image">
+									<img src="{$_IMAGEFULLPATH}/{$_CONTENTS_DIR}/{$file.name}/s_{$rental_parts[$file.name]}" class="mb10" />
+									{if $file.notnull|default:"" != 1}
+									<label><input type="checkbox" name="detail[{$key}][_delete_image[{$file.name}]]" value="{$rental_parts[$file.name]|default:''}" /> この写真を削除する</label>
+									{/if}
+								</div>
+							{/if}
+							<input type="hidden" name="_{$file.name}_now" value="{$rental_parts[$file.name]|default:''}" />
+						{/if}
+						{if isset($rental_parts[$preview_name])}
+							{if $rental_parts[$preview_name]|default:'' != NULL}
+								<div class="load_image">
+									<img src="{$_ADMIN.home}/common/php/imageDisp.php?dir={$_CONTENTS_DIR}&image={$file.name}&arrimage=1" />
+									<span class="c_red"> ※この画像はプレビュー用です。まだ保存されていません。</span>
+									<input type="hidden" name="detail[{$key}][_preview_{$file.name}]" value="{$file.name}" />
+									<input type="hidden" name="detail[{$key}][_preview_image_{$file.name}]" value="{$rental_parts[$preview_name]}" />
+									<input type="hidden" name="detail[{$key}][_preview_image_dir]" value="{$rental_parts._preview_image_dir}" />
+								</div>
+							{/if}
+						{/if}
+						</div>
+						<input type="file" class="file rental_parts_{$file.name}" name="detail[{$key}][{$file.name}]" id="rental_parts_{$file.name}_{$key}" size="50" />
+					</div>
+				</div>
+				{/if}
+				{/foreach}
+
 				<div class="form-group">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-9 pos_ar">
@@ -90,7 +130,7 @@
 				</div>
 				<div class="hr-line-dashed mb50"></div>
 			</div>
-				{/foreach}
+			{/foreach}
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">表示／非表示</label>

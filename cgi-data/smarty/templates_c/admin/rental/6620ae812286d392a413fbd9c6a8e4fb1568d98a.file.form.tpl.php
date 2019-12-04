@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-20 15:26:58
+<?php /* Smarty version Smarty-3.1.18, created on 2019-11-22 12:30:30
          compiled from "/home/jwcc/8034/html/admin/contents/rental/template/form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:12031940255dd3b9fb6ee637-47164759%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6620ae812286d392a413fbd9c6a8e4fb1568d98a' => 
     array (
       0 => '/home/jwcc/8034/html/admin/contents/rental/template/form.tpl',
-      1 => 1574231216,
+      1 => 1574393426,
       2 => 'file',
     ),
   ),
@@ -22,13 +22,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'message' => 0,
     'OptionRentalCategory' => 0,
     'arr_post' => 0,
+    'key' => 0,
+    'rental_parts' => 0,
     '_ARR_IMAGE' => 0,
-    'template_image' => 0,
+    'imgKey' => 0,
+    'file' => 0,
+    'mode' => 0,
     '_IMAGEFULLPATH' => 0,
     '_CONTENTS_DIR' => 0,
-    'key' => 0,
-    'group_parts' => 0,
-    'mode' => 0,
+    'preview_name' => 0,
+    '_ADMIN' => 0,
     '_CONTENTS_ID' => 0,
     '_CONTENTS_CONF_PATH' => 0,
   ),
@@ -96,45 +99,30 @@ if (!is_callable('smarty_function_html_radios')) include '/home/jwcc/8034/cgi-da
 			</div>
 		</div>
 		<div class="hr-line-dashed"></div>
-		<?php if ($_smarty_tpl->tpl_vars['_ARR_IMAGE']->value!=null) {?>
-			<?php echo $_smarty_tpl->getSubTemplate ($_smarty_tpl->tpl_vars['template_image']->value, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('path'=>$_smarty_tpl->tpl_vars['_IMAGEFULLPATH']->value,'dir'=>$_smarty_tpl->tpl_vars['_CONTENTS_DIR']->value,'prefix'=>"s_"), 0);?>
-
-		<?php }?>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">税抜き単価</label>
-			<div class="col-sm-3">
-				<div class="input-group m-b">
-					<span class="input-group-addon">￥</span>
-					<input type="number" class="form-control" name="price" id="price" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['arr_post']->value['price'])===null||$tmp==='' ? '' : $tmp);?>
-" />
-				</div>
-			</div>
-		</div>
-		<div class="hr-line-dashed"></div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">スペック（種類）追加</label>
 			<div class="col-sm-9">
-				<p class="mb10 x-large"> <a href="javascript:void(0);" class="add_group_parts btn btn-primary btn-s"><i class="fa fa-r fa-plus-circle"></i>追加</a></p>
+				<p class="mb10 x-large"> <a href="javascript:void(0);" class="add_rental_parts btn btn-primary btn-s"><i class="fa fa-r fa-plus-circle"></i>追加</a></p>
 			</div>
 		</div>
 		<div id="item_container">
-			<?php  $_smarty_tpl->tpl_vars["group_parts"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["group_parts"]->_loop = false;
+			<?php  $_smarty_tpl->tpl_vars["rental_parts"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["rental_parts"]->_loop = false;
  $_smarty_tpl->tpl_vars["key"] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['arr_post']->value['detail']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars["group_parts"]->key => $_smarty_tpl->tpl_vars["group_parts"]->value) {
-$_smarty_tpl->tpl_vars["group_parts"]->_loop = true;
- $_smarty_tpl->tpl_vars["key"]->value = $_smarty_tpl->tpl_vars["group_parts"]->key;
+foreach ($_from as $_smarty_tpl->tpl_vars["rental_parts"]->key => $_smarty_tpl->tpl_vars["rental_parts"]->value) {
+$_smarty_tpl->tpl_vars["rental_parts"]->_loop = true;
+ $_smarty_tpl->tpl_vars["key"]->value = $_smarty_tpl->tpl_vars["rental_parts"]->key;
 ?>
-			<div class="group_parts_loop" width="100%" data-sirial="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+			<div class="rental_parts_loop" width="100%" data-sirial="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 ">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">スペック（種類）</label>
 					<div class="col-sm-6">
 						<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng'][(('detail_').($_smarty_tpl->tpl_vars['key']->value)).("_type")])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng'][(('detail_').($_smarty_tpl->tpl_vars['key']->value)).("_type")];?>
 </p><?php }?>
-						<input type="text" class="form-control group_parts_type" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-][type]" id="group_parts_type_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-"  size="60" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['group_parts']->value['type'])===null||$tmp==='' ? '' : $tmp);?>
+						<input type="text" class="form-control rental_parts_type" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][type]" id="rental_parts_type_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+"  size="60" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value['type'])===null||$tmp==='' ? '' : $tmp);?>
 " />
 					</div>
 				</div>
@@ -144,8 +132,8 @@ $_smarty_tpl->tpl_vars["group_parts"]->_loop = true;
 						<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng'][(('detail_').($_smarty_tpl->tpl_vars['key']->value)).("_comment")])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng'][(('detail_').($_smarty_tpl->tpl_vars['key']->value)).("_comment")];?>
 </p><?php }?>
 						<textarea name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-][comment]" id="group_parts_comment_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-" rows="3" class="form-control text group_parts_comment"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['group_parts']->value['comment'])===null||$tmp==='' ? '' : $tmp);?>
+][comment]" id="rental_parts_comment_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+" rows="3" class="form-control text rental_parts_comment"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value['comment'])===null||$tmp==='' ? '' : $tmp);?>
 </textarea>
 					</div>
 				</div>
@@ -156,13 +144,86 @@ $_smarty_tpl->tpl_vars["group_parts"]->_loop = true;
 </p><?php }?>
 				        <div class="input-group m-b">
 				            <span class="input-group-addon">￥</span>
-				            <input type="number" class="form-control group_parts_type" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-][price]" id="group_parts_comment_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['group_parts']->value['price'])===null||$tmp==='' ? '' : $tmp);?>
+				            <input type="number" class="form-control rental_parts_type" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][price]" id="rental_parts_comment_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value['price'])===null||$tmp==='' ? '' : $tmp);?>
 " />
 				        </div>
 				    </div>
 				</div>
+
+				<?php  $_smarty_tpl->tpl_vars['file'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['file']->_loop = false;
+ $_smarty_tpl->tpl_vars['key2'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['_ARR_IMAGE']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['file']->key => $_smarty_tpl->tpl_vars['file']->value) {
+$_smarty_tpl->tpl_vars['file']->_loop = true;
+ $_smarty_tpl->tpl_vars['key2']->value = $_smarty_tpl->tpl_vars['file']->key;
+?>
+				<?php if ((($tmp = @$_smarty_tpl->tpl_vars['imgKey']->value)===null||$tmp==='' ? '' : $tmp)==''||((($tmp = @$_smarty_tpl->tpl_vars['imgKey']->value)===null||$tmp==='' ? '' : $tmp)!=''&&$_smarty_tpl->tpl_vars['key']->value==(($tmp = @$_smarty_tpl->tpl_vars['imgKey']->value)===null||$tmp==='' ? '' : $tmp))) {?>
+				<div class="form-group <?php if ((($tmp = @$_smarty_tpl->tpl_vars['file']->value['notnull'])===null||$tmp==='' ? '' : $tmp)==1) {?> required<?php }?>">
+					<label class="col-sm-2 control-label"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['file']->value['column'])===null||$tmp==='' ? '' : $tmp);?>
+</label>
+					<div class="col-sm-6">
+						<?php $_smarty_tpl->tpl_vars['preview_name'] = new Smarty_variable("_preview_image_".((string)$_smarty_tpl->tpl_vars['file']->value['name']), null, 0);?>
+						<div class="mb5">
+						<?php if ($_smarty_tpl->tpl_vars['mode']->value=='edit') {?>
+							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp)==null) {?>
+								<div class="load_image">
+									NOT IMAGE<br />
+								</div>
+							<?php } else { ?>
+								<div class="registered_image">
+									<img src="<?php echo $_smarty_tpl->tpl_vars['_IMAGEFULLPATH']->value;?>
+/<?php echo $_smarty_tpl->tpl_vars['_CONTENTS_DIR']->value;?>
+/<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+/s_<?php echo $_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']];?>
+" class="mb10" />
+									<?php if ((($tmp = @$_smarty_tpl->tpl_vars['file']->value['notnull'])===null||$tmp==='' ? '' : $tmp)!=1) {?>
+									<label><input type="checkbox" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][_delete_image[<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+]]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
+" /> この写真を削除する</label>
+									<?php }?>
+								</div>
+							<?php }?>
+							<input type="hidden" name="_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+_now" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
+" />
+						<?php }?>
+						<?php if (isset($_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['preview_name']->value])) {?>
+							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['preview_name']->value])===null||$tmp==='' ? '' : $tmp)!=null) {?>
+								<div class="load_image">
+									<img src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
+/common/php/imageDisp.php?dir=<?php echo $_smarty_tpl->tpl_vars['_CONTENTS_DIR']->value;?>
+&image=<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+&arrimage=1" />
+									<span class="c_red"> ※この画像はプレビュー用です。まだ保存されていません。</span>
+									<input type="hidden" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][_preview_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+]" value="<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+" />
+									<input type="hidden" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][_preview_image_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+]" value="<?php echo $_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['preview_name']->value];?>
+" />
+									<input type="hidden" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][_preview_image_dir]" value="<?php echo $_smarty_tpl->tpl_vars['rental_parts']->value['_preview_image_dir'];?>
+" />
+								</div>
+							<?php }?>
+						<?php }?>
+						</div>
+						<input type="file" class="file rental_parts_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+]" id="rental_parts_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+" size="50" />
+					</div>
+				</div>
+				<?php }?>
+				<?php } ?>
+
 				<div class="form-group">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-9 pos_ar">
@@ -171,7 +232,7 @@ $_smarty_tpl->tpl_vars["group_parts"]->_loop = true;
 				</div>
 				<div class="hr-line-dashed mb50"></div>
 			</div>
-				<?php } ?>
+			<?php } ?>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">表示／非表示</label>

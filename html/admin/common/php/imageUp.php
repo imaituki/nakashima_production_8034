@@ -36,7 +36,7 @@ if( empty( $_POST["_contents_conf_path"] ) || empty( $_FILES ) ) {
 
 		// 画像操作クラス
 		$FN_file = new FN_file();
-		
+
 		//----------------------------------------
 		//  ファイルアップロード
 		//----------------------------------------
@@ -44,8 +44,93 @@ if( empty( $_POST["_contents_conf_path"] ) || empty( $_FILES ) ) {
 
 			// ファイル設定ループ
 			foreach( $_ARR_IMAGE as $key => $val ) {
+				if( !empty( $_FILES["detail"] ) ) {
+				
+					foreach ( $_FILES["detail"]["tmp_name"] as $key3 => $val3) {
+						
+						// 拡張子を取得
+						$originImage = array();
+						list( $originImage["width"], $originImage["height"], $originImage["extension"] ) = getimagesize( $_FILES["detail"]["tmp_name"][$key3][$val["name"]] );
+						
+						// 拡張子チェック
+						if( $originImage["extension"] < 1 || 3 < $originImage["extension"] ) {
+							$html = "<span class=\"c_red err-img\"> ※ GIF／JPG／PNG以外のファイルはアップロードできません。</span>";
 
-				if( !empty( $_FILES[$val["name"]]["tmp_name"] ) ) {
+						} else {
+							
+							//----------------------------------------
+							//  アップ画像の情報取得
+							//----------------------------------------
+							// アップ画像情報の整理
+							$newImage    = array();
+							
+							switch( $originImage["extension"] ) {
+								case 1:
+									$newImage["imageSrc"]     = imagecreatefromgif( $_FILES["detail"]["tmp_name"][$key3][$val["name"]] ) or die("errSrcGif!\n");
+									$newImage["extension"]    = "gif";
+									$originImage["extension"] = "gif";
+									$fn   = "gif";
+									$ext  = ".gif";
+								break;
+								case 2:
+									$newImage["imageSrc"]     = imagecreatefromjpeg( $_FILES["detail"]["tmp_name"][$key3][$val["name"]] ) or die("errSrcJpg!\n");
+									$newImage["extension"]    = "jpg";
+									$originImage["extension"] = "jpg";
+									$fn   = "jpeg";
+									$ext  = ".jpg";
+									
+								break;
+								case 3:
+									$newImage["imageSrc"]     = imagecreatefrompng( $_FILES["detail"]["tmp_name"][$key3][$val["name"]] ) or die("errSrcPng!\n");
+									$newImage["extension"]    = "png";
+									$originImage["extension"] = "png";
+									$fn   = "png";
+									$ext  = ".png";
+								break;
+								default:
+									$html = "<span class=\"c_red err-img\"> ※ GIF／JPG／PNG以外のファイルはアップロードできません。</span>";
+									
+								break;
+							}
+							// ファイル名の分解
+							$pathInfo = pathinfo( $_FILES["detail"]["tmp_name"][$key3][$val["name"]] . $ext );
+							disp_arr($pathInfo);
+							disp_arr($val);
+
+							// アップロード
+							if( is_array( $val["option"] ) ) {
+								foreach( $val["option"] as $key2 => $val2 ){
+
+									// アップロードパスの差し替え
+									$val2["savePath"] = $pathInfo["dirname"] . "/";
+
+									// 写真リサイズ
+									$ImageInfo = $FN_file->resizeImage( array( "inputPath" => $_FILES["detail"]["tmp_name"][$key3][$val["name"]], "resizeOption" => $val2, "originImage" => $originImage, "newImage" => $newImage ) );
+
+								}
+
+								// ファイル名の置き換え
+								$pathInfo["filename"] = $val["option"]["s"]["fileName"];
+
+							}
+							
+							// 出力
+							$html  = "<img src=\"/admin/common/php/imageDisp.php?dir=" . $arr_post["_contents_dir"] . "&image=" . $val["name"] . "&time=" . strtotime("now") . "\" />&nbsp;";
+							$html .= "<span class=\"c_red\"> ※この画像はプレビュー用です。まだ保存されていません。 </span><br />";
+							$html .= "<input type=\"hidden\" name=\"detail[" . $key3 . "][_preview_" . $val["name"] . "]\" value=\"" . $val["name"]  . "\" />";
+							$html .= '<input type="hidden" name="detail[' . $key3 . '][_preview_image_' . $val["name"] . ']" value="' . $pathInfo["filename"] . $ext . '" />';
+							$html .= '<input type="hidden" name="detail[' . $key3 . '][_preview_image_dir]" value="' . $pathInfo["dirname"] . '" />';
+
+							// 画像をセッションに保存
+							unset( $_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]] );
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["type"]     = $_FILES["detail"][$val["name"]]["type"][$key3];
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["tmp_name"] = $pathInfo["dirname"] . "/s_" . $pathInfo["filename"] . $ext;
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["fn"]       = $fn;
+
+						}
+
+					}
+				}elseif( !empty( $_FILES[$val["name"]]["tmp_name"] ) ) {
 
 					//配列かチェック
 					if( is_array( $_FILES[$val["name"]]["tmp_name"] ) ){

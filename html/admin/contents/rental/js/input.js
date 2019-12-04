@@ -83,11 +83,14 @@ $(function () {
 			$(this).val('');
 		});
 
-		ck.find('.rental_parts_map').each(function () {
-			$(this).attr('name', 'detail[' + sirial + '][map]');
-			$(this).attr('id', 'rental_parts_map_' + sirial);
-			$(this).val('');
-		});
+		for (var count = 0; count <= 5; count++) {
+			ck.find('.rental_parts_image' + count).each(function () {
+				$(this).attr('name', 'detail[' + sirial + '][image' + count + ']');
+				$(this).attr('id', 'rental_parts_image' + count + '_' + sirial);
+				$(this).val('');
+			});
+		}
+
 
 		$(ck).attr('id', 'rental_parts' + sirial).attr('data-sirial', sirial).val('');
 		$('.rental_parts_loop:last').after(ck);
