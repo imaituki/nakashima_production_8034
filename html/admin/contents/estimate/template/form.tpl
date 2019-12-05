@@ -1,7 +1,7 @@
 			<form class="form-horizontal" action="./{if $mode=="edit"}update{else}insert{/if}.php" method="post" enctype="multipart/form-data">
 				<div class="ibox-content">
 					{if $message.ng.all|default:"" != NULL}<p class="error">{$message.ng.all}</p>{/if}
-					<div class="form-group">
+					<div class="form-group required">
 						<label class="col-sm-2 control-label">お見積もり日</label>
 						<div class="col-sm-5">
 							{if $message.ng.estimate_date|default:"" != NULL}<p class="error">{$message.ng.estimate_date}</p>{/if}
@@ -12,7 +12,7 @@
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
-					<div class="form-group required">
+					<div class="form-group">
 						<label class="col-sm-2 control-label">イベント名</label>
 						<div class="col-sm-6">
 							{if $message.ng.event|default:"" != NULL}<p class="error">{$message.ng.event}</p>{/if}
@@ -20,14 +20,14 @@
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
-					<div class="form-group required">
+					<div class="form-group">
 						<label class="col-sm-2 control-label">会場（開催場所）</label>
 						<div class="col-sm-6">
 							{if $message.ng.venue|default:"" != NULL}<p class="error">{$message.ng.venue}</p>{/if}
 							<input type="text" class="form-control" name="venue" id="venue" value="{$arr_post.venue|default:""}" />
 						</div>
 					</div>
-					<div class="form-group required">
+					<div class="form-group">
     					<label class="col-sm-2 control-label">郵便番号</label>
 				        <div class="col-sm-6">
 				            {if $message.ng.zip|default:"" != NULL}<p class="error">{$message.ng.zip}</p>{/if}
@@ -35,7 +35,7 @@
 				            <a href="javascript:AjaxZip3.zip2addr('zip','','prefecture','address');">郵便番号から住所を表示する</a>
 				        </div>
 				    </div>
-				    <div class="form-group required">
+				    <div class="form-group">
 				        <label class="col-sm-2 control-label">都道府県</label>
 				        <div class="col-sm-6">
 				            {if $message.ng.prefecture|default:"" != NULL}<p class="error">{$message.ng.prefecture}</p>{/if}
@@ -43,7 +43,7 @@
 				            {html_select_ken name="prefecture" class="form-control inline input-s w200" selected=$arr_post.prefecture|default:"0"}
 				        </div>
 				    </div>
-				    <div class="form-group required">
+				    <div class="form-group">
 				        <label class="col-sm-2 control-label">住所</label>
 				        <div class="col-sm-6">
 				            {if $message.ng.address|default:"" != NULL}<p class="error">{$message.ng.address}</p>{/if}
@@ -51,7 +51,7 @@
 				        </div>
 				    </div>
 				    <div class="hr-line-dashed"></div>
-					<div class="form-group required">
+					<div class="form-group">
 						<label class="col-md-2 control-label">貸出期間（開催日）</label>
 						<div class="col-md-10">
 							<div class="col-md-3">
@@ -147,7 +147,7 @@
 										<th style="width:50px">単位</th>
 										<th style="width:100px">単価(税抜)</th>
 										<th style="width:100px">消費税</th>
-										<th style="width:100px">単価(税込)</th>
+										<th style="width:100px">単価合計</th>
 										<th style="width:100px">合計金額(税込)</th>
 										<th></th>
 									</tr>
@@ -164,7 +164,7 @@
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price][]" value="{$est.price|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<!-- 消費税-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="{$est.tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
-										<!-- 単価 (税込)-->
+										<!-- 単価合計-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="{$est.price_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<!-- 合計金額(税込)-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em); display:inline-block;" />円
@@ -182,7 +182,7 @@
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="{$est.price_tax|default:''}" list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="{$est.total|default:''}" style="width:calc(100% - 1.5em);display:inline-block;" />円
 											<input type="hidden" name="estimate[id_estimate_detail][]" value="{$est.id_estimate_detail}" />
-											</td>
+										</td>
 										<td><a onclick="javascript:DeleteRecord({$key+1});">✖</a></td>
 									</tr>
 									{/foreach}
@@ -195,8 +195,8 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-9">
-							{if $message.ng.comment1|default:"" != NULL}<p class="error">{$message.ng.comment1}</p>{/if}
-							<textarea name="comment1" id="comment1" rows="3" class="form-control">{$arr_post.comment1|default:""}</textarea>
+							{if $message.ng.comment|default:"" != NULL}<p class="error">{$message.ng.comment}</p>{/if}
+							<textarea name="comment" id="comment" rows="3" class="form-control">{$arr_post.comment|default:""}</textarea>
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>

@@ -116,7 +116,6 @@ class AD_estimate {
 		// チェックエントリー
 
 		$objInputCheck->entryData( "お見積り日", "estimate_date", $arrVal["estimate_date"], array( "CHECK_DATE","CHECK_EMPTY" ), null, null );
-		$objInputCheck->entryData( "イベント名", "event", $arrVal["event"], array( "CHECK_EMPTY","CHECK_MIN_MAX_LEN" ), 0, 255 );
 		$objInputCheck->entryData( "会社名/学校名", "company", $arrVal["company"], array( "CHECK_MIN_MAX_LEN" ), 0, 255 );
 		$objInputCheck->entryData( "名前（担当者名）", "name", $arrVal["name"], array( "CHECK_MIN_MAX_LEN" ), 0, 255 );
 
@@ -156,18 +155,6 @@ class AD_estimate {
 		// 電話番号と携帯番号はどちらかは必ず入力
 		if( (string)$arrVal["tel"] == "" && (string)$arrVal["mobile"] == "" ){
 			$res["ng"]["tel"] .= "電話番号と携帯番号はどちらかは必ず入力してください。<br />";
-		}
-
-		// データ加工
-		if( empty( $arrVal["in_date"] ) ){
-			$arrVal["in_date"] = NULL;
-		}else{
-			$arrVal["in_date"] = date( "Y-m-d", strtotime( $arrVal["in_date"] ) );
-		}
-		if( empty( $arrVal["out_date"] ) ){
-			$arrVal["out_date"] = NULL;
-		}else{
-			$arrVal["out_date"]   = date( "Y-m-d", strtotime( $arrVal["out_date"]   ) );
 		}
 
 		// 見積もり内容加工
@@ -224,14 +211,15 @@ class AD_estimate {
 */
 		$id_estimate = $this->_DBconn->Insert_ID();
 
-disp_arr($estimate); exit;
-
 		if( !empty( $estimate ) && is_array( $estimate ) ){
 			foreach( $estimate as $key => $val ){
 				$arrEstimate[$key] = array( "id_estimate" => $id_estimate,
 											"title" => $val["title"],
 											"number" => $val["number"],
+											"unit" => $val["unit"],
 											"price" => $val["price"],
+											"tax" => $val["tax"],
+											"price_tax" => $val["price_tax"],
 											"total" => $val["total"],
 											"entry_date" => $arrVal["entry_date"],
 											"update_date" => $arrVal["update_date"]
@@ -270,6 +258,12 @@ disp_arr($estimate); exit;
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
 		$arrVal["update_date"] = date( "Y-m-d H:i:s" );
 
+		$arrVal["date_start"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_start"] . " " . implode( ":", $arrVal["start_time"] ) . ":00" ) );
+		$arrVal["date_end"] = date( "Y-m-d H:i:s", strtotime( $arrVal["date_end"] . " " . implode( ":", $arrVal["end_time"] ) . ":59" ) );
+
+		unset( $arrVal["start_time"] );
+		unset( $arrVal["end_time"]   );
+
 		// 更新条件
 		$where = $this->_CtrTablePk . " = " . $arrVal["id_estimate"];
 
@@ -286,7 +280,10 @@ disp_arr($estimate); exit;
 											"id_estimate" => $arrVal["id_estimate"],
 											"title" => $val["title"],
 											"number" => $val["number"],
+											"unit" => $val["unit"],
 											"price" => $val["price"],
+											"tax" => $val["tax"],
+											"price_tax" => $val["price_tax"],
 											"total" => $val["total"],
 											"entry_date" => $arrVal["entry_date"],
 											"update_date" => $arrVal["update_date"]
@@ -439,6 +436,11 @@ disp_arr($estimate); exit;
 
 		// データ取得
 		$res = $this->_DBconn->selectCtrl( $creation_kit, array( "fetch" => _DB_FETCH ) );
+
+		$res["start_time"] = date( "H:i:s", strtotime( $res["date_start"] ) );
+		$res["end_time"]   = date( "H:i:s", strtotime( $res["date_end"] ) );
+		$res["date_start"] = date( "Y-m-d", strtotime( $res["date_start"] ) );
+		$res["date_end"]   = date( "Y-m-d", strtotime( $res["date_end"] ) );
 
 		if( $res == false ){
 			return false;
