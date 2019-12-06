@@ -14,17 +14,16 @@ require "./config.ini";
 //----------------------------------------
 //  PDF出力クラス
 //----------------------------------------
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/config/lang/jpn.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/tcpdf.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/MyTcpdf.class.php";
-
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/config/lang/jpn.php";
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/tcpdf.php";
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/MyTcpdf.class.php";
 
 //----------------------------------------
 //  データ一覧取得
 //----------------------------------------
 // 操作クラス
 $objManage      = new DB_manage( _DNS );
-$objEstimate = new AD_estimate( $objManage );
+$objEstimate    = new AD_estimate( $objManage );
 
 // データ取得
 $t_estimate = $objEstimate->GetIdRow( $arr_get["id"] );
