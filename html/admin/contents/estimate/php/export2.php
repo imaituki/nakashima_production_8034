@@ -14,17 +14,16 @@ require "./config.ini";
 //----------------------------------------
 //  PDF出力クラス
 //----------------------------------------
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/config/lang/jpn.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/tcpdf.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/../data/lib/tcpdf/MyTcpdf.class.php";
-
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/config/lang/jpn.php";
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/tcpdf.php";
+require $_SERVER["DOCUMENT_ROOT"] . "/../cgi-data/lib/tcpdf/MyTcpdf.class.php";
 
 //----------------------------------------
 //  データ一覧取得
 //----------------------------------------
 // 操作クラス
 $objManage      = new DB_manage( _DNS );
-$objEstimate = new AD_estimate( $objManage );
+$objEstimate    = new AD_estimate( $objManage );
 
 // データ取得
 $t_estimate = $objEstimate->GetIdRow( $arr_get["id"] );
@@ -34,6 +33,7 @@ unset( $objManage );
 unset( $objEstimate );
 
 // 合計金額の計算
+
 // 初期化
 $sum = 0;
 if( !empty( $t_estimate["estimate"] ) && is_array( $t_estimate["estimate"] ) ){
@@ -42,11 +42,12 @@ if( !empty( $t_estimate["estimate"] ) && is_array( $t_estimate["estimate"] ) ){
 	}
 }
 
-// 日数
-if( !empty( $t_estimate["in_date"] ) && !empty( $t_estimate["out_date"] ) ){
-	$t_estimate["days"] = ( strtotime($t_estimate["out_date"]) - strtotime($t_estimate["in_date"]) ) / (3600*24);
+$sum_free = 0;
+if( !empty( $t_estimate["estimate"] ) && is_array( $t_estimate["estimate"] ) ){
+	foreach( $t_estimate["estimate"] as $key => $val ){
+		$sum_free += $val["price"] * $val["number"];
+	}
 }
-
 
 //----------------------------------------
 // 表示
@@ -58,9 +59,8 @@ $smarty->compile_dir .= "estimate/";
 // テンプレートに設定
 $smarty->assign( "estimate", $t_estimate );
 $smarty->assign( "sum"     , $sum        );
+$smarty->assign( "sum_free", $sum_free   );
 
-// オプション配列
-$smarty->assign( "OptionStaff", $OptionStaff );
 
 // 表示
 $html = $smarty->fetch( "export2.tpl" );

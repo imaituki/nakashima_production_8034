@@ -442,6 +442,8 @@ class AD_estimate {
 		$res["date_start"] = date( "Y-m-d", strtotime( $res["date_start"] ) );
 		$res["date_end"]   = date( "Y-m-d", strtotime( $res["date_end"] ) );
 
+
+
 		if( $res == false ){
 			return false;
 		}

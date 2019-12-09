@@ -63,7 +63,7 @@ $smarty->assign( "sum_free", $sum_free   );
 
 
 // 表示
-$html = $smarty->fetch( "export.tpl" );
+$html = $smarty->fetch( "export3.tpl" );
 
 
 //----------------------------------------

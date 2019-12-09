@@ -19,7 +19,7 @@ td { vertical-align:middle; }
 <br><br>
 <table width="100%" cellpadding="0">
 	<tr>
-		<td width="300" style="text-align:right"><h1>納品書</h1>
+		<td width="300" style="text-align:right"><h1>ご請求書</h1>
 			&nbsp;<br /></td>
 		<td rowspan="3" width="200" style="text-align:right">{$estimate.estimate_date|date_format:"%Y年%m月%d日"}<br />
 			&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />
@@ -45,7 +45,7 @@ td { vertical-align:middle; }
 		&nbsp;</td>
 	</tr>
 	<tr>
-		<td>いつもお世話になります。<br>下記のとおり、納品いたします。<br>
+		<td>いつもお世話になります。<br>下記の件につきましてご請求申し上げます。<br>
 		&nbsp;<br>
 		{if $estimate.event}【{$estimate.event}】{/if}<br>
 		{if $estimate.venue || $estimate.zip || $estimate.prefecture || $estimate.address}
@@ -64,7 +64,7 @@ td { vertical-align:middle; }
 			{/if}
 		{/if}
 		&nbsp;<br />&nbsp;<br />
-		<span style="font-weight:bold; font-size:40px;">合計金額（税込）<br>
+		<span style="font-weight:bold; font-size:40px;">ご請求金額（税込）<br>
 			　￥{if $sum}{$sum|default:0|number_format}円{/if}</span>&nbsp;(税抜価格 ￥{if $sum_free}{$sum_free|default:0|number_format}円{/if})&nbsp;<br />
 		</td>
 	</tr>

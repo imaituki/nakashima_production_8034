@@ -16,7 +16,7 @@
 						<td class="pos_ac">
 							<a href="./export.php?id={$estimate.id_estimate}" target="_blank" class="btn btn-info">見積書</a>
 							<a href="./export2.php?id={$estimate.id_estimate}" target="_blank" class="btn btn-info">納品書</a>
-							<a href="./export2.php?id={$estimate.id_estimate}" target="_blank" class="btn btn-info">請求書</a>
+							<a href="./export3.php?id={$estimate.id_estimate}" target="_blank" class="btn btn-info">請求書</a>
 						</td>
 						<td class="pos_ac">
 							<a href="javascript:void(0)" class="btn btn-danger btn_delete" data-id="{$estimate.id_estimate}">削除</a>

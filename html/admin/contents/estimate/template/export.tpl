@@ -20,19 +20,53 @@ td { vertical-align:middle; }
 <table width="100%" cellpadding="0">
 	<tr>
 		<td width="300" style="text-align:right"><h1>御見積書</h1>
-			&nbsp;<br></td>
-		<td rowspan="3" width="200" style="text-align:right">{$estimate.date|date_format:"%Y年%m月%d日"}<br>
-			&nbsp;<br>
-			<img src="../image/logo.png" width="180"><br>
-		&nbsp;</td>
+			&nbsp;<br /></td>
+		<td rowspan="3" width="200" style="text-align:right">{$estimate.estimate_date|date_format:"%Y年%m月%d日"}<br />
+			&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />
+			<span style="text-align:center;"><span style="font-weight:bold; font-size:40px;">㈲中島プロダクション</span><br>
+			〒710－0024 倉敷市亀山1004-3<br>
+			代表取締役：中嶋 直樹<br>
+			TEL　086-429-2111<br>
+			FAX　086-428-4515<br>
+			Mail　eventnpro@mx91.tiki.ne.jp/<br>
+			URL　http://ww91.tiki.ne.jp/~eventnpro/<br></span>
+			<img src="../image/logo2.jpg" width="50">
+			&nbsp;<br /></td>
 	</tr>
 	<tr>
-		<td><h2>{if $estimate.company}{$estimate.company|default:""}{if $estimate.name}<br>{else}御中{/if}{/if}{if $estimate.name}{$estimate.name|default:""} 様{/if}</h2>
+		<td><h2>{if $estimate.company}
+					{$estimate.company|default:""}
+						{if $estimate.name}<br>{else}御中{/if}
+				{/if}
+				{if $estimate.name}
+					{if $estimate.post}{$estimate.post|default:""} {/if}
+					{$estimate.name|default:""} 様
+				{/if}</h2>
 		&nbsp;</td>
 	</tr>
 	<tr>
 		<td>いつもお世話になります。<br>下記の件につきましてお見積り申し上げます。<br>ご検討の程、宜しくお願い致します。<br>
-		&nbsp;</td>
+		&nbsp;<br>
+		{if $estimate.event}【{$estimate.event}】{/if}<br>
+		{if $estimate.venue || $estimate.zip || $estimate.prefecture || $estimate.address}
+			開催場所・{if $estimate.venue}{$estimate.venue}<br />　　　　　{/if}
+				{if $estimate.zip || $estimate.prefecture || $estimate.address}
+				{if $estimate.venue}({/if}{if $estimate.zip}〒{$estimate.zip}{/if}{if $estimate.prefecture} {html_select_ken selected=$estimate.prefecture pre=1}{/if}{if $estimate.address} {$estimate.address}{/if}{if $estimate.venue}){/if}
+				{/if}
+				<br />
+		{/if}
+		{if $estimate.date_start || $estimate.date_end}
+				貸出期間・
+			{if $estimate.date_start == $estimate.date_end}
+				{$estimate.date_start|date_format:"%Y年%m月%d日"}　{$estimate.start_time|date_format:"%H:%M"}～{$estimate.end_time|date_format:"%H:%M"}
+			{else}
+				{$estimate.date_start|date_format:"%Y年%m月%d日"}{$estimate.start_time|date_format:"%H:%M"} ～ {$estimate.date_end|date_format:"%Y年%m月%d日"}{$estimate.end_time|date_format:"%H:%M"}
+			{/if}
+		{/if}
+		&nbsp;<br />&nbsp;<br />
+		<span style="font-weight:bold; font-size:40px;">御見積金額（税込）<br>
+			　￥{if $sum}{$sum|default:0|number_format}円{/if}</span>&nbsp;(税抜価格 ￥{if $sum_free}{$sum_free|default:0|number_format}円{/if})&nbsp;<br />
+		</td>
 	</tr>
 </table>
 <table width="100%" cellpadding="5">
@@ -61,12 +95,14 @@ td { vertical-align:middle; }
 		<td class="bor1" style="text-align:right">{if $sum}{$sum|default:0|number_format}円{/if}</td>
 	</tr>
 </table>
+{if $estimate.comment}
 &nbsp;<br>
 <table width="100%" cellpadding="5s">
 	<tr>
 		<td class="bor1">【備考】<br>
-			{$estimate.comment1}</td>
+			{$estimate.comment}</td>
 	</tr>
 </table>
+{/if}
 </body>
 </html>
