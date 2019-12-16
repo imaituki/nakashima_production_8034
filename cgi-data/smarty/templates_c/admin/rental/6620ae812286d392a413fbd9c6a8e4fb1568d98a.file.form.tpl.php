@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-22 12:30:30
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-09 14:30:58
          compiled from "/home/jwcc/8034/html/admin/contents/rental/template/form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:12031940255dd3b9fb6ee637-47164759%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6620ae812286d392a413fbd9c6a8e4fb1568d98a' => 
     array (
       0 => '/home/jwcc/8034/html/admin/contents/rental/template/form.tpl',
-      1 => 1574393426,
+      1 => 1575869332,
       2 => 'file',
     ),
   ),
@@ -41,6 +41,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 if (!is_callable('smarty_function_html_radios')) include '/home/jwcc/8034/cgi-data/smarty/libs/plugins/function.html_radios.php';
 ?><form id="inputForm" name="inputForm" class="form-horizontal" action="./preview.php?preview=1" method="post" enctype="multipart/form-data">
 	<div class="ibox-content">
+		<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['all'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['all'];?>
+</p><?php }?>
 		<div class="form-group required">
 			<label class="col-sm-2 control-label">カテゴリ</label>
 			<div class="col-sm-6">
@@ -180,14 +182,15 @@ $_smarty_tpl->tpl_vars['file']->_loop = true;
 " class="mb10" />
 									<?php if ((($tmp = @$_smarty_tpl->tpl_vars['file']->value['notnull'])===null||$tmp==='' ? '' : $tmp)!=1) {?>
 									<label><input type="checkbox" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-][_delete_image[<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
-]]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
+][_delete_image][<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
 " /> この写真を削除する</label>
 									<?php }?>
 								</div>
 							<?php }?>
-							<input type="hidden" name="_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
-_now" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
+							<input type="hidden" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+][_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+_now]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['file']->value['name']])===null||$tmp==='' ? '' : $tmp);?>
 " />
 						<?php }?>
 						<?php if (isset($_smarty_tpl->tpl_vars['rental_parts']->value[$_smarty_tpl->tpl_vars['preview_name']->value])) {?>
@@ -213,12 +216,14 @@ _now" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value[
 							<?php }?>
 						<?php }?>
 						</div>
-						<input type="file" class="file rental_parts_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+						<input type="file" class="file2 rental_parts_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
 " name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 ][<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
 ]" id="rental_parts_<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
 _<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 " size="50" />
+						<input type="hidden" name="_detail_key" class="rental_parts_detail_key" value="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+" />
 					</div>
 				</div>
 				<?php }?>

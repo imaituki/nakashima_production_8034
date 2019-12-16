@@ -43,6 +43,22 @@ $( function() {
 		}
 	});
 
+	$(".file2").change( function(){
+		php_path   = "./";
+		if( $(this).val() != '' ){
+			var clone = $(this).clone(true);
+			$(this).imageupload2( function(res) {
+				$(this).parents('div').children('.load_image').remove();
+				$(this).before(res);
+				if( $(res).find('.err-img').length > 0 ) {
+					$(this).after(clone).remove();
+
+				}
+				$('#fileup_cover').remove();
+				$(this).val('');
+			});
+		}
+	});
 
 	//-------------------------------------------
 	//  画像アップロード
@@ -86,6 +102,66 @@ $( function() {
 		// 実行
 		form.submit(function() {
 			iframe.on("load", function() {
+
+				// 対象をformからはじき出してform削除
+				form.after(my).remove();
+
+				// iframeの中身取得
+				data = $(iframe).contents().find('body').html();
+
+				// iframe削除
+				setTimeout(function() {
+					iframe.remove();
+					if( callback ) {
+						callback.call( my, data );
+					}
+
+				}, 0 );
+
+			});
+		}).submit();
+
+		// 戻り
+		return this;
+
+	}
+
+	// アップロード処理
+	$.fn.imageupload2 = function ( callback ) {
+
+		// 対象
+		var my = this;
+
+		// iframe名
+		var iframeName = 'fileupload_fm' + ++iframeID;
+
+		// iframe HTML
+		var iframeHtml = '<iframe name="' + iframeName + '" style="display:none;"></iframe>';
+		var fileupCoverHtml = '<div id="fileup_cover"><div id="fileup_cover_in"><div id="loader"></div>読み込み中</div></div>';
+
+		// form HTML
+		var formHtml  = '<form target="' + iframeName + '" method="post" enctype="multipart/form-data" />';
+		var inputHtml = '<input type="hidden" name="_contents_dir" value="' + $('#_contents_dir').val() + '" /><input type="hidden" name="_contents_conf_path" value="' + $('#_contents_conf_path').val() + '" /><input type="hidden" name="_detail_key" value="' + $(this).next().val() + '" />';
+
+		// 追加オプション
+		$('.optimg').each( function() {
+			inputHtml += this.outerHTML;
+		});
+
+
+		// iframe 追加（</body>上にこっそり追加）
+		var iframe = $(iframeHtml).appendTo('body');
+		var fileupCover = $(fileupCoverHtml).appendTo('body');
+
+		// form 追加（対象タグの上下にこっそり追加）
+		var form = my.wrapAll(formHtml).parent('form').attr( 'action', php_path + 'imageUp.php' );
+
+		// input 追加
+		my.before(inputHtml);
+
+		// 実行
+		form.submit(function() {
+			iframe.load(function() {
 
 				// 対象をformからはじき出してform削除
 				form.after(my).remove();

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-20 16:08:10
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-05 11:58:55
          compiled from "/home/jwcc/8034/html/admin/contents/estimate/template/form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15575904595dd48bc4b9ebb5-34791492%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '55222055670781a0bb5ce29bc1e47db8731d9880' => 
     array (
       0 => '/home/jwcc/8034/html/admin/contents/estimate/template/form.tpl',
-      1 => 1574230415,
+      1 => 1575514727,
       2 => 'file',
     ),
   ),
@@ -35,7 +35,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 				<div class="ibox-content">
 					<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['all'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['all'];?>
 </p><?php }?>
-					<div class="form-group">
+					<div class="form-group required">
 						<label class="col-sm-2 control-label">お見積もり日</label>
 						<div class="col-sm-5">
 							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['estimate_date'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['estimate_date'];?>
@@ -48,7 +48,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
-					<div class="form-group required">
+					<div class="form-group">
 						<label class="col-sm-2 control-label">イベント名</label>
 						<div class="col-sm-6">
 							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['event'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['event'];?>
@@ -58,7 +58,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
-					<div class="form-group required">
+					<div class="form-group">
 						<label class="col-sm-2 control-label">会場（開催場所）</label>
 						<div class="col-sm-6">
 							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['venue'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['venue'];?>
@@ -67,7 +67,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 " />
 						</div>
 					</div>
-					<div class="form-group required">
+					<div class="form-group">
     					<label class="col-sm-2 control-label">郵便番号</label>
 				        <div class="col-sm-6">
 				            <?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['zip'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['zip'];?>
@@ -77,7 +77,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 				            <a href="javascript:AjaxZip3.zip2addr('zip','','prefecture','address');">郵便番号から住所を表示する</a>
 				        </div>
 				    </div>
-				    <div class="form-group required">
+				    <div class="form-group">
 				        <label class="col-sm-2 control-label">都道府県</label>
 				        <div class="col-sm-6">
 				            <?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['prefecture'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['prefecture'];?>
@@ -87,7 +87,7 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 
 				        </div>
 				    </div>
-				    <div class="form-group required">
+				    <div class="form-group">
 				        <label class="col-sm-2 control-label">住所</label>
 				        <div class="col-sm-6">
 				            <?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['address'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['address'];?>
@@ -97,43 +97,39 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 				        </div>
 				    </div>
 				    <div class="hr-line-dashed"></div>
-					<div class="form-group required">
-						<label class="col-sm-2 control-label">貸出期間（開催日）</label>
-						<div style="display:flex;">
-							<div class="col-sm-2">
+					<div class="form-group">
+						<label class="col-md-2 control-label">貸出期間（開催日）</label>
+						<div class="col-md-10">
+							<div class="col-md-3">
 								<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['date_start'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['date_start'];?>
 </p><?php }?>
-								<div class="input-daterange input-group" id="datepicker">
+								<div class="input-daterange input-group" style="    margin: 0 auto;">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input type="text" class="input-sm form-control dtp datepicker" name="date_start" id="date_start" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['arr_post']->value['date_start'])===null||$tmp==='' ? '' : $tmp);?>
 " readonly>
 								</div>
 							</div>
-							<div class="col-sm-1" style="vertical-align: middle; align-items: center; display: flex;">～</div>
-							<div class="col-sm-2">
+							<div class="col-md-2" style="display:flex;">
+								<?php echo smarty_function_html_select_time(array('field_array'=>'start_time','prefix'=>'','field_separator'=>"\n:\n",'display_seconds'=>false,'minute_interval'=>10,'time'=>(($tmp = @strtotime($_smarty_tpl->tpl_vars['arr_post']->value['start_time']))===null||$tmp==='' ? time() : $tmp)),$_smarty_tpl);?>
+
+							</div>
+							<div class="col-md-1"><p class="pos_ac">～</p></div>
+							<div class="col-md-3">
 								<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['date_end'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['date_end'];?>
 </p><?php }?>
-								<div class="input-daterange input-group" id="datepicker">
+								<div class="input-daterange input-group" style="    margin: 0 auto;">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input type="text" class="input-sm form-control dtp datepicker" name="date_end" id="date_end" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['arr_post']->value['date_end'])===null||$tmp==='' ? '' : $tmp);?>
 " readonly>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="hr-line-dashed"></div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">貸出時間</label>
-						<div class="col-sm-6">
-							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['start_time'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['start_time'];?>
-</p><?php }?>
-						<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['end_time'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['end_time'];?>
-</p><?php }?>
-						<?php echo smarty_function_html_select_time(array('field_array'=>'start_time','prefix'=>'','field_separator'=>"\n:\n",'display_seconds'=>false,'minute_interval'=>10,'time'=>(($tmp = @strtotime($_smarty_tpl->tpl_vars['arr_post']->value['start_time']))===null||$tmp==='' ? time() : $tmp)),$_smarty_tpl);?>
-&nbsp;～<?php echo smarty_function_html_select_time(array('field_array'=>'end_time','prefix'=>'','field_separator'=>"\n:\n",'display_seconds'=>false,'minute_interval'=>10,'time'=>(($tmp = @strtotime($_smarty_tpl->tpl_vars['arr_post']->value['end_time']))===null||$tmp==='' ? time() : $tmp)),$_smarty_tpl);?>
+							<div class="col-md-2" style="display:flex;">
+								<?php echo smarty_function_html_select_time(array('field_array'=>'end_time','prefix'=>'','field_separator'=>"\n:\n",'display_seconds'=>false,'minute_interval'=>10,'time'=>(($tmp = @strtotime($_smarty_tpl->tpl_vars['arr_post']->value['end_time']))===null||$tmp==='' ? time() : $tmp)),$_smarty_tpl);?>
 
+							</div>
 						</div>
 					</div>
+					
 					<div class="hr-line-dashed"></div>
 					   <style>.required label.control-label._label2:before { background:unset; color: #1AB394; border: 1px solid #1AB394;}</style>
 					<div class="form-group required">
@@ -211,27 +207,34 @@ if (!is_callable('smarty_function_html_select_time')) include '/home/jwcc/8034/c
 										<th style="width:50px">単位</th>
 										<th style="width:100px">単価(税抜)</th>
 										<th style="width:100px">消費税</th>
-										<th style="width:100px">単価(税込)</th>
+										<th style="width:100px">単価合計</th>
 										<th style="width:100px">合計金額(税込)</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr id="base_record" style="display:none;">
+										<!-- 内容-->
 										<td><input type="text" class="form-control" name="estimate[title][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['title'])===null||$tmp==='' ? '' : $tmp);?>
 " list="titles" /></td>
+										<!-- 数量-->
 										<td style="width:50px"><input type="text" class="form-control" name="estimate[number][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['number'])===null||$tmp==='' ? '' : $tmp);?>
 " /></td>
+										<!-- 単位-->
 										<td style="width:50px"><input type="text" class="form-control" name="estimate[unit][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['unit'])===null||$tmp==='' ? '' : $tmp);?>
 " /></td>
+										<!-- 単価（税抜）-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[price][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['price'])===null||$tmp==='' ? '' : $tmp);?>
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<!-- 消費税-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['tax'])===null||$tmp==='' ? '' : $tmp);?>
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
-										<td style="width:100px"><input type="text" class="form-control" name="estimate[ptice_tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['ptice_tax'])===null||$tmp==='' ? '' : $tmp);?>
+										<!-- 単価合計-->
+										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['price_tax'])===null||$tmp==='' ? '' : $tmp);?>
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
+										<!-- 合計金額(税込)-->
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['total'])===null||$tmp==='' ? '' : $tmp);?>
-" style="width:calc(100% - 1.5em);display:inline-block;" />円
+" style="width:calc(100% - 1.5em); display:inline-block;" />円
 											<input type="hidden" name="estimate[id_estimate_detail][]" value="<?php echo $_smarty_tpl->tpl_vars['est']->value['id_estimate_detail'];?>
 " />
 											</td>
@@ -256,7 +259,7 @@ $_smarty_tpl->tpl_vars["est"]->_loop = true;
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['tax'])===null||$tmp==='' ? '' : $tmp);?>
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
-										<td style="width:100px"><input type="text" class="form-control" name="estimate[ptice_tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['ptice_tax'])===null||$tmp==='' ? '' : $tmp);?>
+										<td style="width:100px"><input type="text" class="form-control" name="estimate[price_tax][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['price_tax'])===null||$tmp==='' ? '' : $tmp);?>
 " list="prices" style="width:calc(100% - 1.5em);display:inline-block;"  />円</td>
 										<td style="width:100px"><input type="text" class="form-control" name="estimate[total][]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['est']->value['total'])===null||$tmp==='' ? '' : $tmp);?>
 " style="width:calc(100% - 1.5em);display:inline-block;" />円
@@ -276,9 +279,9 @@ $_smarty_tpl->tpl_vars["est"]->_loop = true;
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-9">
-							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['comment1'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['comment1'];?>
+							<?php if ((($tmp = @$_smarty_tpl->tpl_vars['message']->value['ng']['comment'])===null||$tmp==='' ? '' : $tmp)!=null) {?><p class="error"><?php echo $_smarty_tpl->tpl_vars['message']->value['ng']['comment'];?>
 </p><?php }?>
-							<textarea name="comment1" id="comment1" rows="3" class="form-control"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['arr_post']->value['comment1'])===null||$tmp==='' ? '' : $tmp);?>
+							<textarea name="comment" id="comment" rows="3" class="form-control"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['arr_post']->value['comment'])===null||$tmp==='' ? '' : $tmp);?>
 </textarea>
 						</div>
 					</div>

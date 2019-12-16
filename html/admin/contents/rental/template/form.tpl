@@ -1,5 +1,6 @@
 <form id="inputForm" name="inputForm" class="form-horizontal" action="./preview.php?preview=1" method="post" enctype="multipart/form-data">
 	<div class="ibox-content">
+		{if $message.ng.all|default:"" != NULL}<p class="error">{$message.ng.all}</p>{/if}
 		<div class="form-group required">
 			<label class="col-sm-2 control-label">カテゴリ</label>
 			<div class="col-sm-6">
@@ -98,11 +99,11 @@
 								<div class="registered_image">
 									<img src="{$_IMAGEFULLPATH}/{$_CONTENTS_DIR}/{$file.name}/s_{$rental_parts[$file.name]}" class="mb10" />
 									{if $file.notnull|default:"" != 1}
-									<label><input type="checkbox" name="detail[{$key}][_delete_image[{$file.name}]]" value="{$rental_parts[$file.name]|default:''}" /> この写真を削除する</label>
+									<label><input type="checkbox" name="detail[{$key}][_delete_image][{$file.name}]" value="{$rental_parts[$file.name]|default:''}" /> この写真を削除する</label>
 									{/if}
 								</div>
 							{/if}
-							<input type="hidden" name="_{$file.name}_now" value="{$rental_parts[$file.name]|default:''}" />
+							<input type="hidden" name="detail[{$key}][_{$file.name}_now]" value="{$rental_parts[$file.name]|default:''}" />
 						{/if}
 						{if isset($rental_parts[$preview_name])}
 							{if $rental_parts[$preview_name]|default:'' != NULL}
@@ -116,7 +117,8 @@
 							{/if}
 						{/if}
 						</div>
-						<input type="file" class="file rental_parts_{$file.name}" name="detail[{$key}][{$file.name}]" id="rental_parts_{$file.name}_{$key}" size="50" />
+						<input type="file" class="file2 rental_parts_{$file.name}" name="detail[{$key}][{$file.name}]" id="rental_parts_{$file.name}_{$key}" size="50" />
+						<input type="hidden" name="_detail_key" class="rental_parts_detail_key" value="{$key}" />
 					</div>
 				</div>
 				{/if}

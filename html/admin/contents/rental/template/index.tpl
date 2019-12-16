@@ -7,7 +7,7 @@
 		<link href="{$_ADMIN.home}/common/css/import.css" rel="stylesheet" />
 		{include file=$template_javascript}
 		<script src="{$_ADMIN.home}/common/js/lightbox/import.js"></script>
-		<script src="{$_ADMIN.home}/common/js/plugins/datapicker/bootstrap-datepicker-import.js"></script>
+		<script src="{$_ADMIN.home}/common/js/plugins/datepicker/bootstrap-datepicker-import.js"></script>
 		<script src="{$_ADMIN.home}/common/js/list.js"></script>
 		<script src="./../js/script.js"></script>
 	</head>

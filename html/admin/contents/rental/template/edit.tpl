@@ -8,7 +8,7 @@
 		<link href="{$_ADMIN.home}/common/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
 		{include file=$template_javascript}
 		<script type="text/javascript" src="{$_ADMIN.home}/common/js/input.js"></script>
-		<script src="{$_ADMIN.home}/common/js/plugins/datapicker/bootstrap-datepicker-import.js"></script>
+		<script src="{$_ADMIN.home}/common/js/plugins/datepicker/bootstrap-datepicker-import.js"></script>
 		<script type="text/javascript" src="{$_ADMIN.home}/common/js/ckeditor/ckeditor.js"></script>
 		<link rel="stylesheet" href="{$_ADMIN.home}/common/js/chosen/chosen.css" />
 		<script type="text/javascript" src="{$_ADMIN.home}/common/js/chosen/chosen.jquery.min.js"></script>

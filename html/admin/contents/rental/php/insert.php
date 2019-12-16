@@ -54,6 +54,10 @@ if( empty( $message["ng"] ) ) {
 				$val["id_rental"] = $Id_rental;
 				// 登録処理
 				$res2 = $mainObject->insert_detail( $val );
+
+				if( $res2 == false ){
+					break;
+				}
 			}
 		}
 		// ロールバック

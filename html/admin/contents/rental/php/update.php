@@ -43,12 +43,16 @@ if( empty( $message["ng"] ) ) {
 		$message["ng"]["all"] = _ERRHEAD . "登録処理に失敗しました。（ブラウザの再起動を行って改善されない場合は、システム管理者へご連絡ください。）<br />";
 	}else{
 		if( !empty( $arr_detail ) && is_array( $arr_detail ) ){
-			$mainObject->_DBconn->delete( "t_renp_parts", "id_rental = " . $arr_post["id_rental"] );
+			$mainObject->_DBconn->delete( "t_rental_parts", "id_rental = " . $arr_post["id_rental"] );
 
 			foreach ( $arr_detail as $key => $val ) {
 				$val["id_rental"] = $arr_post["id_rental"];
 				// 登録処理
 				$res2 = $mainObject->insert_detail( $val );
+
+				if( $res2 == false ){
+					break;
+				}
 			}
 		}
 		// ロールバック

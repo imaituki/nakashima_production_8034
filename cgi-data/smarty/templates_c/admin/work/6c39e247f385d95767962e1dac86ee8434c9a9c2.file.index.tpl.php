@@ -1,25 +1,24 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-12-04 15:09:11
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-04 16:43:12
          compiled from "../template/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:16189386775cd280391e8773-20906668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:14322591565de76329d732b8-79045850%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '6c39e247f385d95767962e1dac86ee8434c9a9c2' => 
     array (
       0 => '../template/index.tpl',
-      1 => 1574230417,
+      1 => 1575445368,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '16189386775cd280391e8773-20906668',
+  'nocache_hash' => '14322591565de76329d732b8-79045850',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.18',
-  'unifunc' => 'content_5cd28039260de2_50757493',
+  'unifunc' => 'content_5de76329deb094_85406310',
   'variables' => 
   array (
-    '_ADMIN' => 0,
     'template_javascript' => 0,
     'template_secondary' => 0,
     '_CONTENTS_DIR' => 0,
@@ -31,22 +30,18 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5cd28039260de2_50757493')) {function content_5cd28039260de2_50757493($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_5de76329deb094_85406310')) {function content_5de76329deb094_85406310($_smarty_tpl) {?><!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>管理画面</title>
-		<link href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/common/css/import.css" rel="stylesheet" />
+		<link href="/admin/common/css/import.css" rel="stylesheet" />
 		<?php echo $_smarty_tpl->getSubTemplate ($_smarty_tpl->tpl_vars['template_javascript']->value, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
-		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/common/js/lightbox/import.js"></script>
-		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/common/js/plugins/datepicker/bootstrap-datepicker-import.js"></script>
-		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/common/js/list.js"></script>
+		<script src="/admin/common/js/lightbox/import.js"></script>
+		<script src="/admin/common/js/plugins/datapicker/bootstrap-datepicker-import.js"></script>
+		<script src="/admin/common/js/list.js"></script>
 	</head>
 	<body class="fixed-sidebar no-skin-config">
 		<div id="wrapper">
@@ -60,15 +55,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 						<h2><?php echo $_smarty_tpl->tpl_vars['_CONTENTS_NAME']->value;?>
 </h2>
 						<ol class="breadcrumb">
-							<li><a href="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/">Home</a></li>
+							<li><a href="/">Home</a></li>
 							<li class="active"><strong><?php echo $_smarty_tpl->tpl_vars['_CONTENTS_NAME']->value;?>
 </strong></li>
 						</ol>
 					</div>
-					<div class="col-lg-2 m-b-xs pos_ar mt30">
-						<a href="./new.php" class="btn btn-primary btn-s">新規登録</a>
-					</div>
+				
 				</div>
 				<div class="wrapper wrapper-content">
 					<div class="ibox-content m-b-sm border-bottom">
@@ -123,4 +115,5 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			</div>
 		</div>
 	</body>
-</html><?php }} ?>
+</html>
+<?php }} ?>

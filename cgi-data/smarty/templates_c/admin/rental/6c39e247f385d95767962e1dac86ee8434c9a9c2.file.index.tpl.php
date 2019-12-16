@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-11-20 15:37:07
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-09 14:19:16
          compiled from "../template/index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1508509105dd3aeb954aa22-90234612%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6c39e247f385d95767962e1dac86ee8434c9a9c2' => 
     array (
       0 => '../template/index.tpl',
-      1 => 1574231216,
+      1 => 1575868608,
       2 => 'file',
     ),
   ),
@@ -44,7 +44,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
 /common/js/lightbox/import.js"></script>
 		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
-/common/js/plugins/datapicker/bootstrap-datepicker-import.js"></script>
+/common/js/plugins/datepicker/bootstrap-datepicker-import.js"></script>
 		<script src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
 /common/js/list.js"></script>
 		<script src="./../js/script.js"></script>

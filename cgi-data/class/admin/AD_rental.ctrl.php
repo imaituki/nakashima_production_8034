@@ -195,9 +195,9 @@ class AD_rental {
 	function insert( $arrVal, $arrSql = null ) {
 
 		// アップ処理
-		$ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
+		// $ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
 
-		$FileInfo  = $this->_FN_file->upFile( $_FILES, $this->_ARR_FILE, $arrVal );
+		// $FileInfo  = $this->_FN_file->upFile( $_FILES, $this->_ARR_FILE, $arrVal );
 
 		// 登録データの作成
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
@@ -221,6 +221,22 @@ class AD_rental {
 	// 内  容：スペックデータ登録
 	//-------------------------------------------------------
 	function insert_detail( $arrVal, $arrSql = null ) {
+
+		if( !empty( $arrVal["_delete_image"] ) ){
+			// 写真削除
+			$this->_FN_file->delImage( $this->_ARR_IMAGE2, $arrVal["_delete_image"], $arrVal );
+		}
+
+		// アップ処理
+		$ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
+
+		if( !empty( $this->_ARR_IMAGE ) && is_array( $this->_ARR_IMAGE ) ){
+			foreach( $this->_ARR_IMAGE as $key => $val ){
+				if( empty( $arrVal[$val["name"]] ) && !empty( $arrVal["_" . $val["name"] . "_now"] ) && empty( $arrVal["_delete_image"][$val["name"]] ) ){
+					$arrVal[$val["name"]] = $arrVal["_" . $val["name"] . "_now"];
+				}
+			}
+		}
 
 		// 登録データの作成
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );
@@ -249,9 +265,9 @@ class AD_rental {
 	function update( $arrVal, $arrSql = null ) {
 
 		// 写真削除
-		$this->_FN_file->delImage( $this->_ARR_IMAGE, $arrVal["_delete_image"], $arrVal );
+		// $this->_FN_file->delImage( $this->_ARR_IMAGE, $arrVal["_delete_image"], $arrVal );
 		// アップ処理
-		$ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
+		// $ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
 
 
 		// 登録データの作成
@@ -276,6 +292,11 @@ class AD_rental {
 	// 内  容：スペックデータ登録
 	//-------------------------------------------------------
 	function update_detail( $arrVal, $arrSql = null ) {
+
+		// 写真削除
+		$this->_FN_file->delImage( $this->_ARR_IMAGE, $arrVal["_delete_image"], $arrVal );
+		// アップ処理
+		$ImageInfo = $this->_FN_file->copyImage( $_FILES, $this->_ARR_IMAGE, $arrVal );
 
 		// 登録データの作成
 		$arrVal = $this->_DBconn->arrayKeyMatchFecth( $arrVal, "/^[^\_]/" );

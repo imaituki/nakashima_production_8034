@@ -1,22 +1,20 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-12-09 13:10:02
-         compiled from "/home/jwcc/8034/html/admin/contents/estimate/template/list.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:10470413285dd4873ac57c24-94652251%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-05 11:45:53
+         compiled from "../template/list.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:16953017085de86f614e6b40-76131778%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'cc2ee4d0e1b6b6c04493dc70f33a20ad4d0680b0' => 
+    '536be3878faadbfd3173360df0efbc870ffbb3e2' => 
     array (
-      0 => '/home/jwcc/8034/html/admin/contents/estimate/template/list.tpl',
-      1 => 1575864601,
+      0 => '../template/list.tpl',
+      1 => 1575440965,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '10470413285dd4873ac57c24-94652251',
+  'nocache_hash' => '16953017085de86f614e6b40-76131778',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.18',
-  'unifunc' => 'content_5dd4873ad59e04_02152980',
   'variables' => 
   array (
     'template_pagenavi' => 0,
@@ -25,8 +23,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '_CONTENTS_NAME' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.18',
+  'unifunc' => 'content_5de86f6157bd46_66549098',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5dd4873ad59e04_02152980')) {function content_5dd4873ad59e04_02152980($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/home/jwcc/8034/cgi-data/smarty/libs/plugins/modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_5de86f6157bd46_66549098')) {function content_5de86f6157bd46_66549098($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/home/jwcc/8034/cgi-data/smarty/libs/plugins/modifier.date_format.php';
 ?>			<?php echo $_smarty_tpl->getSubTemplate ($_smarty_tpl->tpl_vars['template_pagenavi']->value, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
 			<table class="footable table table-stripped toggle-arrow-tiny tbl_1" data-page-size="15">
@@ -56,7 +56,7 @@ $_smarty_tpl->tpl_vars["estimate"]->_loop = true;
 " target="_blank" class="btn btn-info">見積書</a>
 							<a href="./export2.php?id=<?php echo $_smarty_tpl->tpl_vars['estimate']->value['id_estimate'];?>
 " target="_blank" class="btn btn-info">納品書</a>
-							<a href="./export3.php?id=<?php echo $_smarty_tpl->tpl_vars['estimate']->value['id_estimate'];?>
+							<a href="./export2.php?id=<?php echo $_smarty_tpl->tpl_vars['estimate']->value['id_estimate'];?>
 " target="_blank" class="btn btn-info">請求書</a>
 						</td>
 						<td class="pos_ac">

@@ -54,6 +54,12 @@ $(function () {
 			});
 		}
 
+		ck.find('.rental_parts_detail_key').each(function () {
+			// $(this).attr('name', 'detail[' + sirial + '][office_image]');
+			// $(this).attr('id', 'rental_parts_office_image_' + sirial);
+			$(this).val(sirial);
+		});
+
 
 		$(ck).attr('id', 'rental_parts' + sirial).attr('data-sirial', sirial).val('');
 		$('.rental_parts_loop:last').after(ck);
