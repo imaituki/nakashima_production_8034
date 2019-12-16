@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2019-12-09 14:30:58
+<?php /* Smarty version Smarty-3.1.18, created on 2019-12-16 13:04:22
          compiled from "/home/jwcc/8034/html/admin/contents/rental/template/form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:12031940255dd3b9fb6ee637-47164759%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6620ae812286d392a413fbd9c6a8e4fb1568d98a' => 
     array (
       0 => '/home/jwcc/8034/html/admin/contents/rental/template/form.tpl',
-      1 => 1575869332,
+      1 => 1576469057,
       2 => 'file',
     ),
   ),
@@ -199,6 +199,7 @@ _now]" value="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['rental_parts']->value
 									<img src="<?php echo $_smarty_tpl->tpl_vars['_ADMIN']->value['home'];?>
 /common/php/imageDisp.php?dir=<?php echo $_smarty_tpl->tpl_vars['_CONTENTS_DIR']->value;?>
 &image=<?php echo $_smarty_tpl->tpl_vars['file']->value['name'];?>
+_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 &arrimage=1" />
 									<span class="c_red"> ※この画像はプレビュー用です。まだ保存されていません。</span>
 									<input type="hidden" name="detail[<?php echo $_smarty_tpl->tpl_vars['key']->value;?>

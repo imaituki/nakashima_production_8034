@@ -108,7 +108,7 @@
 						{if isset($rental_parts[$preview_name])}
 							{if $rental_parts[$preview_name]|default:'' != NULL}
 								<div class="load_image">
-									<img src="{$_ADMIN.home}/common/php/imageDisp.php?dir={$_CONTENTS_DIR}&image={$file.name}&arrimage=1" />
+									<img src="{$_ADMIN.home}/common/php/imageDisp.php?dir={$_CONTENTS_DIR}&image={$file.name}_{$key}&arrimage=1" />
 									<span class="c_red"> ※この画像はプレビュー用です。まだ保存されていません。</span>
 									<input type="hidden" name="detail[{$key}][_preview_{$file.name}]" value="{$file.name}" />
 									<input type="hidden" name="detail[{$key}][_preview_image_{$file.name}]" value="{$rental_parts[$preview_name]}" />

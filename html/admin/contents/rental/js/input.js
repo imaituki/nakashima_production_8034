@@ -51,6 +51,8 @@ $(function () {
 				$(this).attr('name', 'detail[' + sirial + '][image' + count + ']');
 				$(this).attr('id', 'rental_parts_image' + count + '_' + sirial);
 				$(this).val('');
+				$(this).prev('.load_image').remove();
+				$(this).prev('.mb5').children().remove();
 			});
 		}
 

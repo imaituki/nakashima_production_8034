@@ -115,17 +115,17 @@ if( empty( $_POST["_contents_conf_path"] ) || empty( $_FILES ) ) {
 								}
 
 								// 出力
-								$html  = "<img src=\"/admin/common/php/imageDisp.php?dir=" . $arr_post["_contents_dir"] . "&image=" . $val["name"] . "&time=" . strtotime("now") . "\" />&nbsp;";
+								$html  = "<img src=\"/admin/common/php/imageDisp.php?dir=" . $arr_post["_contents_dir"] . "&image=" . $val["name"]."_".$_POST["_detail_key"] . "&time=" . strtotime("now") . "\" />&nbsp;";
 								$html .= "<span class=\"c_red\"> ※この画像はプレビュー用です。まだ保存されていません。 </span><br />";
 								$html .= "<input type=\"hidden\" name=\"imagelist[" . $key3 . "][_preview_" . $val["name"] . "]\" value=\"" . $val["name"]  . "\" />";
 								$html .= '<input type="hidden" name="imagelist[' . $key3 . '][_preview_image_' . $val["name"] . ']" value="' . $pathInfo["filename"] . $ext . '" />';
 								$html .= '<input type="hidden" name="imagelist[' . $key3 . '][_preview_image_dir]" value="' . $pathInfo["dirname"] . '" />';
 
 								// 画像をセッションに保存
-								unset( $_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]] );
-								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["type"]     = $_FILES["detail"]["type"][$_POST["_detail_key"]][$val["name"]][$key3];
-								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["tmp_name"] = $pathInfo["dirname"] . "/s_" . $pathInfo["filename"] . $ext;
-								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["fn"]       = $fn;
+								unset( $_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]] );
+								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["type"]     = $_FILES["detail"]["type"][$_POST["_detail_key"]][$val["name"]][$key3];
+								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["tmp_name"] = $pathInfo["dirname"] . "/s_" . $pathInfo["filename"] . $ext;
+								$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["fn"]       = $fn;
 
 							}
 
@@ -194,17 +194,17 @@ if( empty( $_POST["_contents_conf_path"] ) || empty( $_FILES ) ) {
 
 							}
 							// 出力
-							$html  = "<img src=\"/admin/common/php/imageDisp.php?dir=" . $arr_post["_contents_dir"] . "&image=" . $val["name"] . "&time=" . strtotime("now") . "\" />&nbsp;";
+							$html  = "<img src=\"/admin/common/php/imageDisp.php?dir=" . $arr_post["_contents_dir"] . "&image=" . $val["name"]."_".$_POST["_detail_key"] . "&time=" . strtotime("now") . "\" />&nbsp;";
 							$html .= "<span class=\"c_red\"> ※この画像はプレビュー用です。まだ保存されていません。 </span><br />";
 							$html .= "<input type=\"hidden\" name=\"detail[". $_POST["_detail_key"] . "][_preview_" . $val["name"] . "]\" value=\"" . $val["name"]  . "\" />";
 							$html .= '<input type="hidden" name="detail['. $_POST["_detail_key"] . '][_preview_image_' . $val["name"] . ']" value="' . $pathInfo["filename"] . $ext . '" />';
 							$html .= '<input type="hidden" name="detail['. $_POST["_detail_key"] .'][_preview_image_dir]" value="' . $pathInfo["dirname"] . '" />';
 
 							// 画像をセッションに保存
-							unset( $_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]] );
-							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["type"]     = $_FILES["detail"]["type"][$_POST["_detail_key"]][$val["name"]];
-							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["tmp_name"] = $pathInfo["dirname"] . "/s_" . $pathInfo["filename"] . $ext;
-							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]]["fn"]       = $fn;
+							unset( $_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]] );
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["type"]     = $_FILES["detail"]["type"][$_POST["_detail_key"]][$val["name"]];
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["tmp_name"] = $pathInfo["dirname"] . "/s_" . $pathInfo["filename"] . $ext;
+							$_SESSION["admin"][$arr_post["_contents_dir"]]["preview"][$val["name"]."_".$_POST["_detail_key"]]["fn"]       = $fn;
 
 						}
 
